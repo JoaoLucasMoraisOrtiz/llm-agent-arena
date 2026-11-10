@@ -1,0 +1,54 @@
+id: talentoflow
+nome: TalentoFlow
+tema: treinamento
+empresa_vendedora:
+  nome: TalentoFlow Educação Corporativa
+  descricao: "Edtech brasileira fundada em 2015 em Recife (PE), com ~260 funcionários, que vende plataforma de treinamento corporativo, onboarding e trilhas de capacitação para grandes empresas."
+descricao_curta: "Plataforma de aprendizagem corporativa (LXP/LMS) para onboarding, treinamentos obrigatórios e capacitação operacional em escala, com acesso mobile e offline."
+existentes:
+  - "LMS com suporte a SCORM 1.2, SCORM 2004 e xAPI, com importação de conteúdos existentes"
+  - "Aplicativo mobile Android e iOS com modo offline e sincronização posterior do progresso"
+  - "Microlearning com trilhas gamificadas (pontos, ranking e medalhas)"
+  - "Distribuição de treinamentos via WhatsApp com links e lembretes automáticos"
+  - "Gestão de treinamentos obrigatórios (NRs como NR-10, NR-12, NR-35, compliance e LGPD) com controle de vencimento e emissão de certificados"
+  - "Onboarding estruturado por cargo com checklists para gestor e novo colaborador"
+  - "Assistente de IA para criação de cursos a partir de PDFs e vídeos, gerando quizzes e resumos em português"
+  - "Biblioteca de 1.400 cursos prontos em português (liderança, vendas, atendimento, segurança do trabalho)"
+  - "Integração com SAP SuccessFactors, TOTVS RH e Senior HCM para sincronização de colaboradores"
+  - "SSO via SAML 2.0 e Microsoft Entra ID"
+  - "Escala comprovada de 180 mil usuários ativos em um único cliente"
+roadmap:
+  - "Tutor de IA conversacional que responde dúvidas do colaborador com base nos conteúdos da empresa (previsto para T1/2027)"
+  - "Avaliação prática por vídeo com análise de IA para habilidades de atendimento e vendas (previsto para T2/2027)"
+  - "Mapeamento de competências e recomendação de trilhas por IA a partir do perfil do cargo (previsto para T3/2027)"
+  - "Integração nativa com Workday (previsto para T4/2027)"
+limitacoes:
+  - "Treinamentos práticos de NR exigem componente presencial pela legislação; a plataforma cobre apenas a parte teórica e o registro"
+  - "Assistente de IA gera rascunhos de cursos que precisam de revisão por especialista; não produz vídeos"
+  - "Sem integração nativa com Workday ou Oracle HCM; hoje é via importação de arquivo CSV diária"
+  - "Relatórios avançados de impacto no negócio (correlação com indicadores de vendas ou qualidade) exigem projeto de dados à parte"
+  - "Conteúdos da biblioteca pronta são genéricos; conteúdo específico do cliente precisa ser produzido ou adaptado"
+integracoes: ["SAP SuccessFactors (nativa)", "TOTVS RH (nativa)", "Senior HCM (nativa)", "Microsoft Entra ID e SAML 2.0", "WhatsApp Business API", "Microsoft Teams (notificações)", "Workday via CSV (não nativa)"]
+sla: "99,7% de disponibilidade mensal; suporte a administradores em horário comercial estendido (7h às 22h) com resposta em 4 horas; suporte ao usuário final por chat."
+implantacao: "6 a 8 semanas para ambiente, integração com RH e SSO; exige base de colaboradores com cargos e lotação atualizados, conteúdos existentes em SCORM ou mídia, identidade visual e um responsável de T&D com dedicação de 50%."
+cases:
+  - "Rede Supermercados Bom Preço Nordeste (varejo, 38 mil colaboradores): tempo de onboarding de operadores de caixa reduzido de 10 para 6 dias e turnover de 90 dias caiu 14%."
+  - "Hospitais Santa Clara (saúde, 12 mil colaboradores): 98% de conformidade em treinamentos obrigatórios de acreditação ONA em 8 meses."
+  - "Indústria Metalsul (indústria, 7 mil colaboradores em 4 plantas): 100% dos certificados de NR controlados em plataforma única, eliminando multas de fiscalização."
+preco_tabela_anual: 540000
+desconto_max_pct: 20
+metrica_poc: "Taxa de conclusão de uma trilha de onboarding e redução do tempo até produtividade (time-to-productivity) de novos colaboradores em uma unidade piloto durante 60 dias."
+conhecimento_categoria:
+  - "Plataformas de aprendizagem corporativa costumam custar de R$ 5 a R$ 25 por usuário/mês, com forte desconto por volume."
+  - "Taxas de conclusão de treinamentos voluntários online costumam ficar entre 20% e 40%; obrigatórios com cobrança do gestor chegam a 90% ou mais."
+  - "Medir impacto de treinamento no negócio (nível 4 de Kirkpatrick) é difícil e raramente é entregue só pela plataforma."
+  - "SCORM e xAPI são padrões de mercado; qualquer LMS sério deve importar conteúdos nesses formatos."
+  - "Normas regulamentadoras como NR-10 e NR-35 exigem carga prática presencial; EAD não substitui integralmente."
+  - "Em operações com trabalhadores de linha de frente (lojas, fábricas, hospitais), acesso mobile e offline é fator crítico de adoção."
+fit_base:
+  magalu: 0.8
+  weg: 0.65
+  localiza: 0.65
+  slc: 0.5
+  hapvida: 0.8
+cargos_alvo: [COO, Diretor Comercial, CFO]

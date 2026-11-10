@@ -1,0 +1,55 @@
+# Arena de Vendas B2B — configuração
+modelo:
+  max_concorrencia: 16         # chamadas simultâneas ao LLM
+  timeout_s: 120
+  sonda_cota_s: 600            # Fase 0.6: com a cota da janela esgotada, sonda a cada 10 min (uma chamada por vez)
+  tentativas: 4
+  temperatura:
+    vendedor: 0.7
+    comprador: 0.8
+    juiz: 0.01                 # o gateway não aceita 0 exato de forma confiável
+orcamento:
+  teto_por_jornada: 1500000    # tokens contados (input + output + cache_creation; cache_read não conta)
+  teto_global: 700000000
+estagios:
+  cold_call:   {minutos: 8,  max_turnos: 40}
+  discovery:   {minutos: 25, max_turnos: 110}
+  fechamento:  {minutos: 25, max_turnos: 110}
+call:
+  palavras_por_minuto: 150
+  janela_literal: 10           # turnos literais no bloco D
+  resumo_a_cada: 10            # turnos
+  estagnacao_a_cada: 10
+  estagnacao_depois_de: 20
+  max_palavras_fala: 70
+memoria:
+  licoes_por_call: 8
+  max_por_tema: 3
+  thompson: true
+  critico_onisciente: false
+  max_licoes_ativas: 150
+  juiz_realismo: true          # Fase 0.4: 1 chamada por linhagem de comprador por rodada, antes de lições novas entrarem
+  max_licoes_bloqueio: 12      # Fase 0.4: teto de lições de encerrar/recusar/filtrar por linhagem de comprador
+  aposentar_media_abaixo: 0.35
+  aposentar_n_min: 5
+liga:
+  jornadas_por_rodada: 12
+  hall_of_fame_prob: 0.2
+  elo_k: 24
+placar:
+  regra_fechamento: ponto_medio # Fase 0.2: simétrica (meio da zona de acordo). A regra "orcamento" segue registrada como métrica secundária
+  parada_condicionada_ao_fit: true   # sem avanço com fit≥0,5 = empate; sem fit = vitória do comprador
+prompt:
+  resumo_empresa_palavras: 250 # Fase 0.5: dossiê resumido no prompt (o completo fica no banco)
+custo:
+  notas_max_tokens: 700        # Fase 0.5: notas pós-call enxutas
+deriva:                        # Fase 0.7: faixas-alvo (hipóteses de trabalho, a validar com humanos)
+  faixas:
+    reuniao_cold_call_fit_alto: [0.20, 0.40]
+    reuniao_cold_call_fit_baixo: [0.00, 0.05]
+    poc_discovery_fit_alto: [0.30, 0.50]
+    contrato_no_fechamento: [0.50, 0.75]
+    desconto_medio_fechamento: [0.05, 0.20]
+    fala_vendedor_pct: [40, 55]
+    mediana_palavras_vendedor: [0, 40]
+    taxa_respostas_vagas: [0.10, 0.40]

@@ -1,0 +1,53 @@
+id: nuvemcerta
+nome: NuvemCerta
+tema: custo_nuvem
+empresa_vendedora:
+  nome: NuvemCerta Tecnologia
+  descricao: "Empresa brasileira fundada em 2019 em Florianópolis (SC), com ~120 funcionários, que vende plataforma de FinOps para visibilidade e otimização de custos de nuvem."
+descricao_curta: "Plataforma de FinOps que unifica custos de AWS, Azure e GCP, aloca gastos por time e recomenda ou automatiza economias."
+existentes:
+  - "Ingestão de custos de AWS (CUR 2.0), Azure (Cost Management exports) e GCP (BigQuery billing export), com atualização a cada 6 horas"
+  - "Suporte ao padrão FOCUS 1.0 da FinOps Foundation para normalização de custos multicloud"
+  - "Alocação de custos por tags, contas, projetos e regras de rateio compartilhado (showback e chargeback)"
+  - "Recomendações de rightsizing de instâncias EC2, Azure VMs e GCE com base em 30 dias de métricas de CPU e memória"
+  - "Análise de cobertura e recomendação de compra de Savings Plans, Reserved Instances e Committed Use Discounts"
+  - "Detecção de anomalias de custo com alerta em Slack, Microsoft Teams e e-mail"
+  - "Identificação de recursos ociosos: discos não anexados, IPs públicos sem uso, snapshots antigos e load balancers vazios"
+  - "Visibilidade de custos de Kubernetes (EKS, AKS, GKE) por namespace via agente baseado em OpenCost"
+  - "Relatórios em reais com conversão cambial diária pela PTAX e projeção de gastos"
+  - "Economia média identificada de 22% nos primeiros 90 dias em clientes com gasto acima de R$ 1 milhão/mês"
+roadmap:
+  - "Automação de rightsizing com aplicação direta das mudanças via Terraform e pull requests (previsto para T1/2027)"
+  - "Gestão automática de portfólio de Savings Plans com recompra e venda no RI Marketplace (previsto para T2/2027)"
+  - "Suporte a custos de Oracle Cloud (OCI) e Magalu Cloud (previsto para T3/2027)"
+  - "Custos de uso de IA generativa (tokens de Bedrock, Azure OpenAI e Vertex AI) por aplicação e time (previsto para T2/2027)"
+limitacoes:
+  - "As recomendações não são aplicadas automaticamente hoje; a execução depende dos times de engenharia do cliente"
+  - "Não suporta Oracle Cloud (OCI), IBM Cloud nem nuvens brasileiras como Magalu Cloud"
+  - "Alocação precisa depende de política de tags madura; com menos de 70% de recursos taggeados, a alocação fica parcial"
+  - "Custos de licenças SaaS (Microsoft 365, Salesforce) e de data center on-premises não são cobertos"
+  - "Recomendações de rightsizing de bancos gerenciados (RDS, Azure SQL) são limitadas a CPU; não analisam IOPS"
+integracoes: ["AWS (CUR 2.0, CloudWatch)", "Azure (Cost Management, Azure Monitor)", "GCP (BigQuery billing export)", "Kubernetes via OpenCost", "Slack e Microsoft Teams", "Jira para abrir tarefas de otimização", "Datadog (métricas de utilização, beta)", "SAP S/4HANA via exportação CSV de centros de custo (não nativa)"]
+sla: "99,5% de disponibilidade da plataforma; atualização de dados de custo em até 12 horas; suporte em horário comercial com resposta em 4 horas e customer success dedicado para contratos acima de R$ 500 mil."
+implantacao: "2 a 4 semanas para visibilidade inicial; exige criação de roles de leitura nas contas de nuvem, habilitação do CUR/exports de billing, revisão da política de tags e um responsável de FinOps ou arquitetura do cliente."
+cases:
+  - "Marketplace Vitrine Brasil (varejo digital, R$ 2,8 milhões/mês em AWS): redução de 27% do gasto em 6 meses com rightsizing e Savings Plans."
+  - "Metalúrgica Tupi Digital (indústria, R$ 900 mil/mês em Azure): alocação de 94% dos custos por unidade de negócio e economia de 18% em 1 ano."
+  - "Seguradora Aliança Norte (seguros, multicloud AWS e GCP): detecção de anomalia que evitou R$ 420 mil de gasto indevido em um fim de semana."
+preco_tabela_anual: 390000
+desconto_max_pct: 25
+metrica_poc: "Economia identificada e validada (em R$/mês) sobre o gasto de nuvem de uma ou mais contas em 45 dias, e percentual dessa economia efetivamente implementada."
+conhecimento_categoria:
+  - "Economias de 15% a 30% no primeiro ano são típicas em FinOps; acima de 40% só em ambientes com muito desperdício inicial."
+  - "Ferramentas de FinOps costumam cobrar de 1% a 3% do gasto de nuvem gerenciado ou um valor fixo por faixa de gasto."
+  - "Economia identificada é diferente de economia realizada: a execução depende dos times de engenharia e costuma ficar entre 40% e 70% do identificado."
+  - "As próprias nuvens oferecem ferramentas gratuitas (AWS Cost Explorer, Azure Advisor, GCP Recommender), então o valor está em multicloud, alocação e governança."
+  - "Compromissos de Savings Plans e RIs de 1 a 3 anos trazem descontos de 30% a 70%, mas geram risco se o uso cair."
+  - "Custos em nuvem cobrados em dólar tornam o câmbio um fator relevante de variação no Brasil."
+fit_base:
+  magalu: 0.9
+  weg: 0.8
+  localiza: 0.6
+  slc: 0.25
+  hapvida: 0.5
+cargos_alvo: [CTO, CFO]

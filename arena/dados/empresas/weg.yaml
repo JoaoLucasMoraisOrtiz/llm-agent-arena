@@ -1,0 +1,81 @@
+id: weg
+nome: WEG
+setor: industria
+porte: grande
+maturidade_digital: media
+publico: |
+  A WEG (B3: WEGE3), com sede em Jaraguá do Sul (SC), é uma das maiores fabricantes globais de equipamentos
+  eletroeletrônicos. Produz motores elétricos, drives e automação industrial, transformadores, geradores, equipamentos
+  de transmissão e distribuição de energia, soluções para energia solar e eólica, tintas e vernizes, e componentes
+  para mobilidade elétrica. Tem cerca de 63 parques fabris em 17 países (Brasil, México, EUA, Colômbia, Portugal,
+  Espanha, Áustria, Alemanha, China, Índia, África do Sul e outros), operações comerciais e assistência técnica em
+  mais de 40 países e distribuidores em mais de 120. Encerrou 2025 com cerca de 49 mil colaboradores (aproximado).
+
+  Números recentes (aproximados): em 2025 a receita operacional líquida foi de cerca de R$ 40,8 bilhões (+7%) e o lucro
+  líquido de aproximadamente R$ 6,3 bilhões (+5,5%). No 2T26 a receita ficou em cerca de R$ 10,1 bilhões, estável no
+  ano (-0,6%), com lucro de aproximadamente R$ 1,56 bilhão e margem EBITDA perto de 22%. O ROIC é elevado, cerca de 34%.
+  O mercado externo responde por mais de 60% da receita. Em dólares, a receita externa cresceu cerca de 15% no 2T26,
+  com América do Norte em torno de +20% e Europa em torno de +16%. O real valorizado (dólar médio perto de R$ 5,05
+  contra R$ 5,67 um ano antes) reduz a receita convertida. No mercado interno, a área de Geração, Transmissão e
+  Distribuição (GTD) sofre com a falta de novos projetos de geração solar centralizada, enquanto equipamentos
+  industriais (motores e painéis) cresceram cerca de 16% no Brasil.
+
+  Estratégia declarada: internacionalização com produção local e crescimento em transformadores e em soluções para
+  a transição energética (redes elétricas, data centers, armazenamento em baterias, eletrificação). O capex do 2T26 foi
+  de cerca de R$ 800 milhões, mais da metade no exterior, com novas fábricas de transformadores no México, Colômbia e
+  EUA e aumento de capacidade na China. Os EUA representam aproximadamente 20% a 25% das vendas. Com as tarifas
+  americanas de 2025, parte da produção foi deslocada para o México, e a exposição direta às tarifas ficou estimada em
+  apenas 2% a 3% da receita. Analistas estimam um possível ganho extraordinário de R$ 170 a 230 milhões se tarifas pagas
+  entre 2025 e 2026 forem reembolsadas.
+
+  Tecnologia: a WEG tem cultura de engenharia forte e desenvolve soluções digitais para clientes (monitoramento de
+  motores e ativos industriais, IoT, automação). Internamente opera um parque fabril muito verticalizado (fundição,
+  bobinagem, estamparia, pintura), com dezenas de plantas em fusos e ERPs diferentes, parte herdada de aquisições. A
+  digitalização da manufatura (MES, manutenção preditiva, qualidade) avança em ritmos diferentes entre as unidades.
+
+  Desafios públicos: dependência de ciclos de investimento (solar centralizada em queda no Brasil), câmbio,
+  tarifas e barreiras comerciais, pressão sobre custos de matérias-primas (cobre, aço silício), integração de
+  aquisições internacionais e a execução simultânea de várias expansões fabris. A margem é alta para o setor, e a
+  empresa é conhecida por disciplina de custos e processos rigorosos de compra.
+cargos:
+  CTO: "Responsável pela TI corporativa global, pelos sistemas de manufatura e pela plataforma digital oferecida aos clientes (IoT e monitoramento de ativos). Neste ano prioriza padronizar sistemas entre as fábricas novas no exterior, segurança OT/IT e o custo de nuvem das soluções digitais."
+  CFO: "Cuida de câmbio, hedge, alocação de capital em novas fábricas e da recuperação de tarifas nos EUA. O foco é preservar o ROIC acima de 30% com o real forte e controlar o capital de giro de uma operação em 17 países."
+  COO: "Coordena as operações industriais globais: capacidade de transformadores, prazos de entrega e produtividade. Em 2026 prioriza o ramp-up das fábricas no México, EUA e Colômbia sem perder qualidade."
+  Diretor de Compras: "Gere compras de commodities (cobre, aço, alumínio), componentes eletrônicos e serviços em escala global. A prioridade é reduzir custo, diversificar fornecedores diante de tarifas e garantir abastecimento para as novas plantas."
+  Diretor Comercial: "Responsável pelas vendas de motores, automação, T&D e energia para indústria, concessionárias e integradores. Busca compensar a queda da solar centralizada no Brasil com data centers, redes e mercado externo."
+dores_internas:
+  - tema: manufatura
+    texto: "As paradas não planejadas em linhas de bobinagem e fundição ainda são detectadas de forma reativa em várias plantas. A manutenção preditiva existe como piloto em algumas unidades, mas não foi escalada."
+  - tema: manufatura
+    texto: "O ramp-up das novas fábricas de transformadores no exterior sofre com a curva de aprendizado. Os indicadores de qualidade e refugo não são comparáveis entre plantas porque cada uma usa um MES diferente."
+  - tema: custo_nuvem
+    texto: "A plataforma de monitoramento de ativos para clientes gera volume crescente de dados de sensores. O custo de armazenamento e processamento em nuvem cresce mais rápido que a receita dessas soluções."
+  - tema: custo_nuvem
+    texto: "Ambientes de nuvem de subsidiárias adquiridas na Europa e na América do Norte continuam separados, com contratos e contas próprias e sem visão consolidada de gastos."
+  - tema: seguranca
+    texto: "A convergência entre TI e OT nas fábricas expõe CLPs e sistemas de chão de fábrica a ransomware. O inventário de ativos industriais conectados está incompleto nas plantas mais antigas."
+  - tema: seguranca
+    texto: "Os projetos de engenharia de transformadores e de energia para clientes estratégicos (concessionárias, data centers) exigem proteção de propriedade intelectual e auditorias de segurança cada vez mais frequentes."
+  - tema: contas_pagar
+    texto: "A empresa tem milhares de fornecedores em vários países, moedas e regimes fiscais. A conciliação de faturas de importação com tarifas, frete e câmbio é manual e sujeita a erro."
+  - tema: contas_pagar
+    texto: "O processo de recuperação de tarifas pagas nos EUA exige rastrear documentação de cada importação. Os dados estão dispersos entre ERP, despachantes e planilhas."
+  - tema: treinamento
+    texto: "A expansão fabril exige formar rapidamente operadores e técnicos em novos países, com padrões de segurança e qualidade WEG. O treinamento depende de instrutores deslocados de Jaraguá do Sul."
+  - tema: treinamento
+    texto: "A equipe de engenharia de aplicação e de vendas técnicas precisa dominar portfólios novos (baterias, data centers, eletrificação), mas o conhecimento está concentrado em poucos especialistas."
+fornecedores_plausiveis:
+  - "ERP SAP (com instâncias diferentes em subsidiárias adquiridas)"
+  - "MES e sistemas de automação industrial, parte deles desenvolvidos internamente"
+  - "Hyperscaler de nuvem (Azure/AWS) para plataformas digitais e IoT"
+  - "Fornecedores globais de commodities (cobre, aço silício) e tradings"
+  - "Plataforma de e-learning corporativo (LMS) combinada com treinamento presencial"
+fontes:
+  - https://www.suno.com.br/noticias/weg-wege3-resultados-2t26-lucro-receita-ebitda-mt/
+  - https://www.infomoney.com.br/mercados/weg-wege3-resultados-segundo-trimestre-2026/
+  - https://www.infomoney.com.br/mercados/weg-wege3-resultados-quarto-trimestre-2025/
+  - https://timesbrasil.com.br/empresas-e-negocios/energia/weg-lucro-2025-resultado-4t25-ebitda/
+  - https://statusinvest.com.br/noticias/weg-wege3-tarifas-eua-impacto/
+  - https://bpmoney.com.br/negocios/empresas-na-bolsa/weg-wege3-reembolso-tarifas-eua-jpmorgan-margem-ebitda/
+  - https://www.nsctotal.com.br/colunista/pedro-machado/o-curioso-dado-que-vai-alem-da-fabrica-de-bilionarios-e-mostra-o-gigantismo-da-weg
+  - https://ri.weg.net/en/weg/corporate-profile/

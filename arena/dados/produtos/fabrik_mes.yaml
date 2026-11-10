@@ -1,0 +1,56 @@
+id: fabrik_mes
+nome: Fabrik MES
+tema: manufatura
+empresa_vendedora:
+  nome: Fabrik Sistemas Industriais
+  descricao: "Empresa brasileira fundada em 2009 em Joinville (SC), com ~310 funcionários, que vende sistema de execução de manufatura (MES) e monitoramento de chão de fábrica."
+descricao_curta: "MES modular para apontamento de produção, OEE em tempo real, rastreabilidade e qualidade, integrado a CLPs e ao ERP."
+existentes:
+  - "Coleta automática de dados de máquinas via OPC UA, Modbus TCP e MQTT, com gateway de borda próprio"
+  - "Drivers nativos para CLPs Siemens S7-1200/1500, Rockwell ControlLogix e WEG PLC300"
+  - "Cálculo de OEE em tempo real por máquina, linha e turno, com árvore de motivos de parada configurável"
+  - "Apontamento de produção e refugo em terminais de chão de fábrica (tablets e totens) com leitura de código de barras e RFID"
+  - "Rastreabilidade de lote e número de série da matéria-prima ao produto acabado (genealogia)"
+  - "Módulo de qualidade com CEP (controle estatístico de processo), cartas X-barra/R e plano de inspeção"
+  - "Integração com SAP ECC e SAP S/4HANA via IDoc/BAPI para ordens de produção e confirmações (em produção em 14 clientes)"
+  - "Integração com TOTVS Protheus e TOTVS Datasul"
+  - "Implantação on-premises ou em nuvem (Azure Brasil Sul)"
+  - "Dashboards de andon e TV para linha de produção"
+  - "Mais de 9 mil máquinas conectadas em 70 plantas no Brasil e na América Latina"
+roadmap:
+  - "Sequenciamento e programação finita da produção (APS) integrado ao MES (previsto para T2/2027)"
+  - "Manutenção preditiva com análise de vibração e corrente de motores via IA (previsto para T3/2027)"
+  - "Inspeção visual de qualidade com visão computacional em linha (previsto para T1/2027)"
+  - "Certificação oficial SAP para a integração com S/4HANA (previsto para T4/2027)"
+  - "Gêmeo digital da linha de produção para simulação de cenários (previsto para 2028)"
+limitacoes:
+  - "Integração com SAP não é certificada pela SAP; funciona via IDoc/BAPI mas cada projeto exige mapeamento específico (4 a 8 semanas)"
+  - "Máquinas antigas sem CLP ou com protocolos proprietários exigem instalação de sensores/IO remoto adicionais, cobrados à parte"
+  - "Não possui módulo de APS (programação finita); hoje depende de ferramenta externa"
+  - "Implantação por planta leva de 4 a 6 meses; rollout multiplanta costuma levar mais de 12 meses"
+  - "Sem validação para indústria farmacêutica (GMP/21 CFR Part 11)"
+  - "Suporte presencial apenas nas regiões Sul e Sudeste; demais regiões com atendimento remoto e deslocamento cobrado"
+integracoes: ["SAP ECC e S/4HANA via IDoc/BAPI (não certificada)", "TOTVS Protheus e Datasul (nativa)", "Siemens, Rockwell e WEG CLPs via OPC UA/drivers nativos", "AVEVA PI System (leitura via PI Web API)", "Power BI via conector", "Microsoft Azure IoT Hub"]
+sla: "99,5% de disponibilidade para versão em nuvem; suporte 24x7 para parada de linha com resposta em 1 hora; demais chamados em horário comercial."
+implantacao: "4 a 6 meses por planta piloto; exige equipe de automação para acesso a CLPs, rede industrial segmentada, key user de produção e de TI, e mapeamento dos processos e motivos de parada. Rollout nas demais plantas em ondas de 2 a 3 meses."
+cases:
+  - "Metalúrgica Vale do Itajaí (indústria metalmecânica, 1.800 funcionários): OEE subiu de 58% para 69% em 10 meses."
+  - "Motores Andrade (indústria eletromecânica, 3 plantas): redução de 35% no tempo de apontamento manual e de 18% no refugo em 1 ano."
+  - "Plásticos Serra Gaúcha (injeção plástica, 120 injetoras): rastreabilidade completa de lote exigida por cliente automotivo alcançada em 5 meses."
+preco_tabela_anual: 2100000
+desconto_max_pct: 15
+metrica_poc: "Ganho de OEE (pontos percentuais) em uma linha piloto medido por 90 dias, comparado à linha de base coletada automaticamente nas 4 semanas iniciais."
+conhecimento_categoria:
+  - "Ganhos de OEE de 5 a 10 pontos percentuais no primeiro ano são considerados bons; saltos de 20 pontos ou mais em poucos meses são raros."
+  - "A primeira medição automática de OEE geralmente revela um número menor que o apontado manualmente, porque paradas curtas passam a ser registradas."
+  - "Integração certificada com SAP é rara entre fornecedores de MES médios e o processo de certificação leva meses."
+  - "Conectar máquinas antigas (sem CLP moderno) é o maior custo oculto de projetos de MES."
+  - "Projetos de MES costumam levar de 4 a 9 meses por planta; rollout multiplanta de grandes indústrias leva anos."
+  - "OPC UA é o padrão de fato para interoperabilidade na Indústria 4.0; protocolos proprietários exigem gateways."
+fit_base:
+  magalu: 0.05
+  weg: 0.95
+  localiza: 0.05
+  slc: 0.2
+  hapvida: 0.05
+cargos_alvo: [COO, CTO, CFO]

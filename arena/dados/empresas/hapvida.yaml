@@ -1,0 +1,77 @@
+id: hapvida
+nome: Hapvida NotreDame Intermédica
+setor: saude
+porte: grande
+maturidade_digital: media
+publico: |
+  A Hapvida (B3: HAPV3), com sede em Fortaleza (CE), é uma das maiores operadoras de planos de saúde e odontológicos do
+  Brasil. Seu modelo é verticalizado: o grupo é dono da maior parte da rede que atende os beneficiários (hospitais,
+  prontos-atendimentos, clínicas, laboratórios e centros de imagem). Em 2022 se fundiu com a NotreDame Intermédica
+  (GNDI), o que criou uma operação nacional com forte presença no Norte, Nordeste e Sudeste. A integração de sistemas
+  entre as duas empresas foi concluída depois de cerca de três anos. Envolveu a migração de mais de 6 milhões de
+  beneficiários, mais de 10 mil prestadores integrados e cerca de 20 mil colaboradores treinados em sistemas
+  unificados (ERP, folha, sistema hospitalar, autorização e agendamento).
+
+  Números recentes (aproximados): em 2025 a receita líquida foi de cerca de R$ 30,9 bilhões (+6,6%), mas o EBITDA
+  ajustado caiu cerca de 33% por causa de custos assistenciais elevados. A rede própria chegou a cerca de 830 unidades,
+  com aproximadamente 900 leitos adicionados em 2025. A empresa tem um plano de investimento de cerca de R$ 2 bilhões
+  para construir 10 novos hospitais até 2026. No 2T26 a receita líquida foi de aproximadamente R$ 8 bilhões (+4%), mas
+  o lucro ajustado caiu cerca de 96%, para perto de R$ 12 milhões. A sinistralidade caixa subiu para cerca de 75%, e o
+  EBITDA ajustado de aproximadamente R$ 500 milhões ficou com margem perto de 6%. As provisões cíveis brutas quase
+  dobraram no ano (cerca de R$ 324 milhões no trimestre), e as despesas judiciais nos custos assistenciais subiram
+  cerca de 60%. A alavancagem foi para cerca de 1,6x EBITDA, e as ações caíram mais de 30% após o balanço. A empresa
+  encerrou o trimestre com cerca de 8,7 milhões de beneficiários de saúde e 7,3 milhões de odontologia.
+
+  Estratégia declarada: revisão da carteira. Cerca de 947 mil vidas (cerca de 11% da base de saúde) foram
+  identificadas como não rentáveis ou inadimplentes e devem ter reajuste de preço ou cancelamento de contratos, com
+  potencial de cerca de 0,9 p.p. de margem estrutural. A empresa também quer expandir a rede própria para reduzir
+  custos com rede credenciada, reforçar a gestão de custo médico e combater a judicialização. Diz investir em
+  tecnologia e IA em autorização, regulação médica, prontuário e atendimento.
+
+  Tecnologia e dados: a operação lida com volume enorme de dados sensíveis de saúde (prontuários, exames, guias de
+  autorização) de milhões de pessoas. Isso a submete à LGPD, com dados de saúde tratados como sensíveis e fiscalizados
+  pela ANPD, além da regulação da ANS. O setor de saúde brasileiro tem sido alvo frequente de ataques cibernéticos e
+  vazamentos.
+
+  Desafios públicos: sinistralidade em alta, inflação médica, judicialização crescente (liminares para procedimentos
+  e medicamentos), pressão regulatória da ANS sobre reajustes e cancelamentos, risco político em ano eleitoral (2026),
+  consumo de caixa, execução da expansão hospitalar e reclamações de beneficiários sobre acesso e tempo de espera.
+  A companhia está sob forte pressão de investidores para recuperar margem rapidamente.
+cargos:
+  CTO: "Responsável pelos sistemas unificados pós-fusão (ERP, sistema hospitalar, autorização e agendamento), pelos dados clínicos e pela segurança da informação. Em 2026 prioriza IA na regulação e autorização, proteção de dados sensíveis sob a LGPD e estabilidade dos sistemas."
+  CFO: "Gere caixa, dívida e provisões judiciais em um ano de lucro quase zerado. O foco é recuperar margem, reduzir o consumo de caixa e dar previsibilidade a investidores após a queda das ações."
+  COO: "Responde por cerca de 830 unidades próprias, pela abertura de novos hospitais e pela gestão do custo assistencial. A prioridade é conter a sinistralidade, reduzir o uso de rede credenciada e melhorar o tempo de atendimento."
+  Diretor de Compras: "Negocia medicamentos, OPME, materiais hospitalares, equipamentos médicos e serviços terceirizados para uma rede nacional. Busca reduzir o custo por procedimento e padronizar itens entre as unidades Hapvida e GNDI."
+  Diretor Comercial: "Responsável pelas vendas PME, empresariais e individuais e pela política de reajuste. Em 2026 conduz a revisão de cerca de 947 mil vidas não rentáveis sem perder os clientes bons nem gerar crise regulatória."
+dores_internas:
+  - tema: atendimento
+    texto: "O call center e os canais digitais recebem grande volume de pedidos de autorização, agendamento e reclamações. O tempo de espera alto gera queixas na ANS e alimenta processos judiciais."
+  - tema: atendimento
+    texto: "A comunicação de reajustes e cancelamentos da revisão de carteira vai gerar picos de contatos e contestações. A equipe de atendimento não tem roteiros nem ferramentas preparadas para esse volume."
+  - tema: seguranca
+    texto: "Prontuários, laudos e dados de milhões de beneficiários ficam em sistemas hospitalares com muitos acessos. O controle de quem acessou qual prontuário (trilha de auditoria LGPD) é incompleto nas unidades antigas."
+  - tema: seguranca
+    texto: "O setor de saúde é alvo frequente de ransomware. Um incidente pararia autorizações e prontos-atendimentos e exigiria comunicação à ANPD e aos titulares, com risco reputacional e regulatório alto."
+  - tema: seguranca
+    texto: "Prestadores credenciados e parceiros acessam o sistema de autorização com credenciais compartilhadas. Há fraudes em guias e em reembolsos e pouca detecção automatizada."
+  - tema: contas_pagar
+    texto: "O faturamento de milhares de prestadores credenciados e fornecedores de OPME exige conferência de contas médicas contra guias autorizadas. A glosa é manual e sujeita a erro, com atraso e disputas."
+  - tema: contas_pagar
+    texto: "O pagamento de depósitos e condenações judiciais está espalhado por muitos processos e comarcas, sem conciliação integrada entre o jurídico e o financeiro, o que dificulta prever o caixa."
+  - tema: treinamento
+    texto: "A abertura de novos hospitais exige contratar e capacitar milhares de profissionais em protocolos clínicos, sistemas e LGPD em pouco tempo, e a qualidade do onboarding varia muito por região."
+  - tema: treinamento
+    texto: "Atendentes e equipes de regulação precisam aplicar regras de cobertura e prazos da ANS de forma consistente. Os erros viram liminares, mas a reciclagem é pontual e pouco medida."
+fornecedores_plausiveis:
+  - "ERP SAP (unificado após a fusão) e folha de pagamento LG"
+  - "Sistemas hospitalares e de autorização próprios ou customizados (SIGA, SIGO, SAVI)"
+  - "Contact center com parte da operação terceirizada em BPO"
+  - "Distribuidores de medicamentos, OPME e materiais hospitalares"
+  - "Consultorias jurídicas e escritórios de contencioso de massa"
+fontes:
+  - https://www.infomoney.com.br/mercados/hapvida-hapv3-acoes-desabam-balanco-2t26-marcado-por-margens-pressionadas-e-judicializacao/
+  - https://br.advfn.com/jornal/2026/08/hapvida-tem-lucro-ajustado-de-r-12-5-milhoes-no-2t26-queda-de-95-8-e-acao-desaba-27
+  - https://economicnewsbrasil.com.br/2026/08/13/hapvida-planos-de-saude-lucro-receita-2t26/
+  - https://economicnewsbrasil.com.br/2026/03/19/balanco-da-hapvida-2025-analise/
+  - https://exame.com/invest/mercados/hapvida-anuncia-conclusao-de-integracao-de-sistemas-com-a-notredame-intermedica/
+  - https://www.segs.com.br/seguros/410597-hapvida-anuncia-investimento-de-r-2-bilhoes-em-ampliacao-da-rede-incluindo-novos-hospitais-em-sao-paulo

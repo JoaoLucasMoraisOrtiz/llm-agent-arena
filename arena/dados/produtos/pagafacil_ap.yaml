@@ -1,0 +1,54 @@
+id: pagafacil_ap
+nome: PagaFácil AP
+tema: contas_pagar
+empresa_vendedora:
+  nome: PagaFácil Automação Financeira
+  descricao: "Fintech brasileira de software B2B fundada em 2018 em São Paulo (SP), com ~230 funcionários, que vende automação de contas a pagar e captura de documentos fiscais."
+descricao_curta: "Automação de contas a pagar que captura NF-e, NFS-e e boletos, concilia com pedidos de compra e agenda pagamentos no ERP e no banco."
+existentes:
+  - "Captura automática de NF-e e CT-e direto da SEFAZ via certificado digital A1 (manifestação do destinatário)"
+  - "Leitura de NFS-e por OCR/IA com acurácia média de 94% por campo nos municípios não integrados ao padrão nacional"
+  - "Suporte ao padrão nacional da NFS-e (ADN) para municípios aderentes"
+  - "Conciliação 3-way match (pedido de compra, recebimento e nota fiscal) com tolerâncias configuráveis"
+  - "Leitura de boletos (linha digitável e DDA) e validação de beneficiário contra CNPJ do fornecedor"
+  - "Workflow de aprovação por alçada, centro de custo e valor, com aprovação por aplicativo e e-mail"
+  - "Integração com SAP S/4HANA via add-on certificado pela SAP (SAP Certified Integration), além de TOTVS Protheus e Oracle EBS via API"
+  - "Remessa CNAB 240 e API Pix/boletos para Itaú, Bradesco, Santander, Banco do Brasil e Caixa"
+  - "Detecção de duplicidade de pagamento e alerta de alteração de dados bancários de fornecedor (antifraude)"
+  - "Cálculo de retenções (IRRF, CSRF, INSS e ISS) em notas de serviço"
+  - "Processa mais de 4 milhões de documentos fiscais por mês em 160 clientes"
+roadmap:
+  - "Módulo de adaptação à reforma tributária (CBS/IBS) com cálculo e apuração de créditos no novo modelo de NF-e (previsto para T1/2027, antes do início da cobrança efetiva)"
+  - "Portal do fornecedor com antecipação de recebíveis (risco sacado) integrado (previsto para T2/2027)"
+  - "Agente de IA que negocia prazos e resolve divergências diretamente com fornecedores por e-mail (previsto para T3/2027)"
+  - "Integração nativa com Oracle Fusion Cloud ERP (previsto para T3/2027)"
+limitacoes:
+  - "Suporte à reforma tributária (CBS/IBS) hoje cobre apenas a leitura dos novos campos da NF-e em 2026 (fase de teste); apuração de créditos ainda não existe"
+  - "OCR de NFS-e em municípios com layouts não padronizados tem acurácia menor (cerca de 85%) e exige revisão humana"
+  - "Documentos internacionais (invoices de importação) não são capturados automaticamente"
+  - "Integração com Oracle EBS é via API customizada, com projeto de 6 a 10 semanas"
+  - "Cadastro de fornecedores precisa de saneamento prévio; bases com CNPJs duplicados reduzem muito a taxa de automação"
+integracoes: ["SAP S/4HANA e SAP ECC (add-on certificado)", "TOTVS Protheus (nativa)", "Oracle EBS via API REST (não certificada)", "SEFAZ (NF-e, CT-e via certificado A1)", "ADN da NFS-e nacional", "Itaú, Bradesco, Santander, Banco do Brasil e Caixa via CNAB 240 e APIs", "Coupa e SAP Ariba (importação de pedidos)"]
+sla: "99,8% de disponibilidade mensal; captura de NF-e da SEFAZ em até 1 hora após autorização; suporte crítico com resposta em 2 horas em dias úteis."
+implantacao: "8 a 12 semanas; exige certificados digitais A1 de todos os CNPJs, acesso ao ambiente SAP para instalação do add-on, saneamento do cadastro de fornecedores, definição de alçadas e um key user do contas a pagar dedicado 50%."
+cases:
+  - "Distribuidora Nortefarma (distribuição, R$ 6 bilhões de faturamento, 18 mil notas/mês): taxa de lançamento sem toque (touchless) de 72% em 6 meses e redução de 5 para 2 FTEs na triagem."
+  - "Indústria Metalforte (indústria, 9 CNPJs): eliminação de R$ 3,1 milhões em pagamentos duplicados no primeiro ano."
+  - "Rede Clinimed (saúde, 40 unidades): prazo médio de fechamento do contas a pagar caiu de 7 para 3 dias úteis."
+preco_tabela_anual: 620000
+desconto_max_pct: 22
+metrica_poc: "Taxa de documentos lançados sem intervenção manual (touchless rate) e acurácia de extração por campo em uma amostra de 3 mil documentos reais de um CNPJ por 60 dias."
+conhecimento_categoria:
+  - "Taxas de touchless de 60% a 80% são boas para AP no Brasil; 95% ou mais só com fornecedores e processos muito padronizados."
+  - "NF-e e CT-e podem ser obtidas estruturadas direto da SEFAZ; o desafio real é a NFS-e, que historicamente varia por município."
+  - "A reforma tributária (EC 132/2023 e LC 214/2025) tem 2026 como ano de teste da CBS/IBS, com transição até 2033; ninguém tem apuração completa madura ainda."
+  - "Add-on certificado pela SAP é diferencial real; muitas integrações anunciadas são apenas via API sem certificação."
+  - "Fraude por alteração de dados bancários de fornecedor (BEC) é um dos riscos mais comuns em contas a pagar."
+  - "Preços de automação de AP costumam ser por volume de documentos processados, e o custo total depende muito do mix de NFS-e."
+fit_base:
+  magalu: 0.75
+  weg: 0.75
+  localiza: 0.7
+  slc: 0.6
+  hapvida: 0.75
+cargos_alvo: [CFO, Diretor de Compras, CTO]

@@ -1,0 +1,282 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{enumitem}
+\usepackage[numbers,sort]{natbib}
+\usepackage{hyperref}
+\usepackage{caption}
+\setlist{nosep}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
+
+\title{\textbf{Autojogo com Memória em Contexto para Simulação de Vendas B2B:\\
+Resultados Preliminares e Lições sobre o Desenho de Incentivos}}
+\author{[Autores]\\\small [Afiliação]}
+\date{Relatório técnico --- setembro de 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Apresentamos uma arena de simulação em que dois agentes baseados em um mesmo modelo de linguagem (MiniMax-M3) negociam vendas B2B em português: um \emph{comprador}, que interpreta um gestor de uma empresa brasileira real ou sintética com informações privadas (orçamento, dores, papel na decisão), e um \emph{vendedor} de um produto fictício com ficha técnica verificável. As jornadas percorrem cold call, reunião de diagnóstico (\emph{discovery}), prova de conceito (PoC) simulada e negociação de fechamento, com placar objetivo de soma zero. Os agentes aprendem sem ajuste de pesos, por memória em contexto: um crítico extrai lições condicionais após cada conversa; um consolidador as funde em versões de um \emph{playbook}; a recuperação usa similaridade por atributos com amostragem de Thompson. Comparamos duas ligas que diferem apenas no crítico: \emph{realista} (não vê as informações ocultas do oponente) e \emph{onisciente} (vê). Em 36 rodadas completas, 956 conversas e 10.749 turnos, apenas o vendedor com crítico realista melhorou de forma estatisticamente detectável contra um painel fixo de oponentes (8 melhores, 1 pior em avaliações pareadas; teste de sinais, $p\approx0{,}04$). O achado mais consequente, porém, é sobre incentivos: uma regra de placar que tratava ``encerrar a ligação'' como vitória do comprador, independentemente do \emph{fit}, foi explorada pelo autojogo e produziu compradores-porteiros irrealistas (reuniões com \emph{fit} alto caíram a 0\%). Discutimos a assimetria estrutural do fechamento sob informação privada, a necessidade de coerência entre \emph{fit} e dor nos cenários e a calibração do comprador antes do autojogo. Os resultados são preliminares: a amostra é pequena e as regras foram corrigidas durante a execução.
+\end{abstract}
+
+\section{Introdução}
+
+Simuladores de clientes baseados em LLMs são promissores para treinar vendedores humanos, mas só têm valor se o comportamento simulado for realista: um cliente fácil demais ensina hábitos errados, e um cliente impossível não ensina nada. Uma forma natural de produzir agentes exigentes é o \emph{autojogo} (\emph{self-play}), no qual comprador e vendedor se aprimoram um contra o outro. Em jogos de dois jogadores com soma zero, espera-se que o autojogo tenda a um equilíbrio; neste trabalho perseguimos, como meta operacional, uma taxa de vitória próxima de 50/50.
+
+Este relatório descreve (i) um ambiente de simulação de vendas B2B com jornada encadeada, informação privada, verificação objetiva de promessas e placar objetivo; (ii) um mecanismo de aprendizado em contexto, sem ajuste de pesos, com memória em três camadas; e (iii) um experimento controlado que compara dois tipos de crítico. Nossas contribuições são:
+
+\begin{enumerate}
+  \item Uma arquitetura aberta de arena de vendas com passos síncronos (ligação) e assíncronos (propostas por e-mail), placar objetivo derivado de ações estruturadas e verificação de afirmações contra ficha técnica.
+  \item Evidência preliminar de que um crítico \emph{realista} gera memória útil ao vendedor, enquanto um crítico \emph{onisciente} não gera, e ainda aumenta afirmações falsas.
+  \item Um estudo de caso de \emph{exploração de incentivo}: como uma regra de placar aparentemente razoável levou o autojogo a produzir compradores irrealistas, e como corrigi-la.
+  \item Um diagnóstico dos obstáculos ao equilíbrio 50/50 (assimetria do fechamento, incoerência entre \emph{fit} e dor, ausência de calibração) e recomendações concretas.
+\end{enumerate}
+
+\section{Trabalhos relacionados}
+
+\textbf{Negociação entre LLMs.} Conjuntos de dados clássicos de negociação humana incluem \emph{Deal or No Deal}~\cite{lewis2017deal} e CraigslistBargain~\cite{he2018decoupling}. Com LLMs, \citet{fu2023improving} mostram que dois modelos em papéis de comprador e vendedor melhoram por autojogo com feedback de um terceiro modelo crítico, mecanismo que adaptamos. NegotiationArena~\cite{bianchi2024negotiationarena} avalia LLMs em jogos de ultimato, troca e compra e venda, e mostra que táticas comportamentais alteram substancialmente os ganhos. Magentic Marketplace~\cite{magentic2025} estuda mercados de agentes e sua vulnerabilidade à manipulação.
+
+\textbf{Simulação social e de clientes.} SOTOPIA~\cite{zhou2024sotopia} avalia inteligência social com objetivos privados e juiz LLM. \citet{zhou2024reallife} alertam que simulações em que os agentes conhecem os objetivos um do outro parecem bem-sucedidas demais, o que motiva nossa assimetria de informação. SalesLLM~\cite{salesllm2026} avalia vendedores LLM contra simuladores de clientes com níveis de dificuldade e mostra que a escolha do simulador altera fortemente os rankings. Nosso foco é B2B, com jornada de múltiplas reuniões.
+
+\textbf{Aprendizado por memória.} Reflexion~\cite{shinn2023reflexion} e ExpeL~\cite{zhao2024expel} extraem lições de episódios passados e as reinjetam no contexto. Estendemos essa ideia com condições por atributos, estatística Beta de utilidade por lição e amostragem de Thompson~\cite{thompson1933} para equilibrar exploração e aproveitamento, além de consolidação versionada.
+
+\textbf{Técnicas de venda.} Os estilos e técnicas dos agentes derivam de SPIN Selling~\cite{rackham1988spin}, The Challenger Sale~\cite{dixon2011challenger}, MEDDIC e da literatura de negociação baseada em princípios~\cite{fisher1981getting}. As âncoras de realismo vêm de estatísticas públicas de conversas reais, como a proporção de fala do vendedor~\cite{gong2024talk}.
+
+\section{Ambiente}
+
+\subsection{Cenários}
+Cada jornada é gerada por código a partir de: uma empresa (cinco empresas reais listadas na B3, com dossiês de dados públicos, ou uma empresa sintética derivada delas com nome fictício); um cargo (CTO, CFO, COO, Compras ou Comercial) e um papel (decisor ou influenciador); um de oito produtos fictícios (cibersegurança, atendimento com IA, telemetria de frota, agricultura de precisão, MES, contas a pagar, FinOps e treinamento), cada um com ficha técnica que separa funcionalidades \emph{existentes}, \emph{roadmap} e \emph{limitações}. O código sorteia as \textbf{verdades ocultas}:
+\begin{itemize}
+  \item \emph{fit} real $\in[0{,}05;0{,}95]$, a partir de uma matriz produto$\times$empresa com ruído;
+  \item orçamento do comprador $= \text{preço de tabela}\times U(0{,}85;1{,}15)$;
+  \item piso do vendedor (desconto máximo autorizado, de 10\% a 25\%);
+  \item fatos privados do comprador com nível de revelação (\textsc{fácil}/\textsc{médio}/\textsc{difícil}) e regra oculta do chefe (para influenciadores).
+\end{itemize}
+Seguimos o princípio de que números e verdades ocultas vêm do código; o LLM apenas redige a narrativa.
+
+\subsection{Jornada e protocolo de turno}
+A jornada encadeia cold call ($\le$8 min), \emph{discovery} ($\le$25 min), PoC simulada e fechamento ($\le$25 min). Para cobrir todos os estágios, 50\% das jornadas começam na cold call e 25\% em cada um dos outros estágios, com um histórico anterior sintético. Em cada turno, o agente emite uma saída estruturada: \texttt{<pensamento>} (privado), \texttt{<estado>} (quadro de crenças reescrito a cada turno), \texttt{<tecnica>}, \texttt{<fala>} (única parte vista pelo oponente) e \texttt{<acoes>} (propostas e decisões formais). O relógio é derivado das palavras faladas (150 palavras/min). Um árbitro verifica estagnação a cada 10 turnos. Guardas de código rejeitam alfabetos não latinos, vazamento de estratégia na fala e falas longas demais. Após a reunião, há passos assíncronos: proposta escrita de PoC ou proposta comercial, contraproposta do comprador, palavra final do vendedor e decisão.
+
+\subsection{Placar}
+O placar é de soma zero ($+1$ vendedor, $0$ empate, $-1$ comprador), calculado por código a partir das ações:
+\begin{itemize}
+  \item \textbf{Cold call:} reunião marcada com $\textit{fit}\ge0{,}5 \Rightarrow +1$; reunião sem \emph{fit} $\Rightarrow -1$.
+  \item \textbf{Discovery:} PoC aceita com critério de sucesso $\Rightarrow +1$.
+  \item \textbf{PoC:} sucesso sorteado com probabilidade $p=\textit{fit}\cdot\prod 0{,}5^{\#\text{falsas}}\,0{,}75^{\#\text{exageros}}$, sobre as afirmações materiais do vendedor.
+  \item \textbf{Fechamento} (regra do proponente do estudo): preço $>$ orçamento $\Rightarrow +1$; preço $\approx$ orçamento $\Rightarrow 0$; preço $<$ orçamento $\Rightarrow -1$; sem acordo $\Rightarrow 0$. Há penalidade adicional de pós-venda quando o contrato foi fechado sobre afirmações falsas.
+  \item \textbf{Regra do chefe:} para influenciadores, um extrator LLM lê o relatório ao chefe e uma regra de código aprova apenas com recomendação explícita, retorno quantificado e sem riscos críticos em aberto.
+\end{itemize}
+Um verificador LLM classifica cada afirmação do vendedor em \emph{verdadeira}, \emph{exagero}, \emph{roadmap vendido como pronto}, \emph{falsa} ou \emph{não verificável}, contra a ficha técnica.
+
+\section{Aprendizado em contexto}
+
+\textbf{Memória em três camadas.} (M1) \emph{trabalho}: janela de 10 turnos literais, resumo rolante \emph{append-only} (preserva prefixos para cache) e estado de crenças. (M2) \emph{jornada}: ficha de CRM do vendedor e notas internas do comprador, incluindo o registro de promessas ouvidas. (M3) \emph{estratégica}, por estilo (4 vendedores: consultivo, challenger, técnico, fechador; 4 compradores: analítico, político, negociador, ocupado): um \emph{playbook} sempre ativo ($\le$600 tokens) e lições condicionais recuperadas por semelhança.
+
+\textbf{Lições.} Cada lição tem uma condição sobre atributos (setor, porte, maturidade digital, cargo, papel, estágio, estilo do oponente; \texttt{null} = curinga), uma ação, um mecanismo (``porque'') e parâmetros $(\alpha,\beta)$ de uma distribuição Beta de utilidade. Na recuperação, cada lição recebe o escore $s=\text{match}\cdot u$, com $u\sim\text{Beta}(\alpha,\beta)$ (amostragem de Thompson), e há um limite por tema. A recuperação é puramente código.
+
+\textbf{Crítico e crédito.} Após cada call, um crítico LLM recebe a transcrição, os pensamentos privados do mentorado, o resultado e as lições injetadas. Ele indica quais lições foram aplicadas e com qual efeito ($\alpha\mathrel{+}=1$ se ajudou, $\beta\mathrel{+}=1$ se atrapalhou) e propõe de 0 a 3 lições novas, que passam por validação (sem nomes do caso, sem valores absolutos, perspectiva correta).
+
+\textbf{Consolidação versionada.} Dentro de uma rodada, todas as jornadas leem uma versão congelada da memória. Ao fim, um consolidador funde duplicatas, generaliza e reescreve o \emph{playbook}, e o código aposenta lições com média Beta $<0{,}35$ após pelo menos 5 usos. As rodadas alternam o lado aprendiz; o pareamento usa Elo, com 20\% de oponentes de versões antigas (\emph{hall of fame}).
+
+\textbf{Críticos comparados.} No crítico \emph{realista}, as informações ocultas do oponente não são reveladas ao crítico. No crítico \emph{onisciente}, o crítico do vendedor recebe o orçamento real, o \emph{fit} e o papel do comprador, e o crítico do comprador recebe o piso do vendedor.
+
+\section{Protocolo experimental}
+
+Ambas as ligas usam o mesmo modelo (MiniMax-M3, via gateway compatível com a API Anthropic) nos dois lados, no crítico e nos juízes, com temperaturas de 0,7 (vendedor), 0,8 (comprador) e $\approx$0 (juízes). Cada liga tinha teto de 330~mi de tokens contados (entrada + saída; leitura de cache não conta), com rodadas de 16 jornadas. A execução foi interrompida pela cota de uso do provedor após $\sim$9h40 de corrida.
+
+\textbf{Medida de aprendizado.} O placar da liga não mede aprendizado, porque os dois lados mudam. Usamos \emph{avaliação pareada}: os mesmos cenários e sementes, contra um painel fixo de oponentes na versão inicial (v0), com o lado avaliado na versão v0 e na versão treinada. Reportamos a contagem melhor/igual/pior e o teste de sinais bicaudal.
+
+\textbf{Mudanças durante a execução.} Por transparência: (i) a partir da rodada 2, contraproposta por escrito no fechamento; (ii) a partir da rodada 6, proposta de PoC por escrito e placar 0 para ``retorno condicionado'' na \emph{discovery}; (iii) a partir da rodada 8 (liga A) e 10 (liga B), placar de cold call e \emph{discovery} condicionado ao \emph{fit} (\S\ref{sec:incentivo}). Os dados antes e depois dessas mudanças não são plenamente comparáveis.
+
+\section{Resultados}
+
+\subsection{Volume e realismo de forma}
+
+\begin{table}[h]
+\centering
+\caption{Volume do experimento.}
+\label{tab:volume}
+\begin{tabular}{lrrr}
+\toprule
+ & Liga A (realista) & Liga B (onisciente) & Total \\
+\midrule
+Rodadas completas & 14 & 22 & 36 \\
+Jornadas de liga concluídas & 273 & 423 & 696 \\
+Jornadas de avaliação pareada & 93 & 129 & 222 \\
+Conversas (calls) & 382 & 574 & 956 \\
+Turnos de fala & 4.347 & 6.402 & 10.749 \\
+Palavras faladas & 189 mil & 278 mil & 467 mil \\
+Lições criadas / ativas ao final & 407 / 204 & 652 / 259 & -- \\
+Tokens contados (mi) & 25,2 & 38,2 & 63,4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Nas 956 calls, o vendedor ocupou em média 56\% das palavras (âncora de conversas reais bem-sucedidas: $\sim$43\%~\cite{gong2024talk}); a mediana de palavras por fala foi de 50 para o vendedor e 36 para o comprador. Houve 7 falhas de formato e nenhuma inversão de papel detectada pela heurística. O cache de prompt do provedor se mostrou pouco confiável (a leitura de cache foi de $\sim$19\% dos tokens contados), o que elevou o custo médio para $\sim$90 mil tokens por jornada.
+
+\subsection{Avaliação pareada}
+
+\begin{table}[h]
+\centering
+\caption{Avaliações pareadas agregadas: versão treinada vs.\ v0, nos mesmos cenários, contra oponentes v0 fixos. Inclui uma avaliação avulsa ($n=8$) e as periódicas ($n=12$ cada).}
+\label{tab:pareada}
+\begin{tabular}{llrrrr}
+\toprule
+Lado avaliado & Liga & Melhor & Igual & Pior & $p$ (sinais) \\
+\midrule
+\textbf{Vendedor} & \textbf{A (realista)} & \textbf{8} & 11 & \textbf{1} & \textbf{0,04} \\
+Vendedor & B (onisciente) & 6 & 21 & 5 & 1,00 \\
+Comprador & A (realista) & 5 & 12 & 3 & 0,73 \\
+Comprador & B (onisciente) & 3 & 24 & 5 & 0,73 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Apenas o vendedor da liga realista melhorou de forma detectável (Tab.~\ref{tab:pareada}; delta médio de $+0{,}33$ a $+0{,}50$ ponto por jornada nas avaliações individuais). O crítico onisciente não produziu ganho mensurável. Os compradores não melhoraram contra vendedores fixos: as jornadas avaliadas com compradores treinados terminaram majoritariamente em empate.
+
+\subsection{Dinâmica da liga}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.9\linewidth,height=5.5cm,xlabel={Rodada},ylabel={Placar médio da liga},
+  ymin=-0.85,ymax=0.1,xmin=0.5,xmax=22.5,grid=major,grid style={gray!20},
+  legend pos=south east,legend style={font=\small},
+  extra y ticks={0},extra y tick style={grid style={black,dashed}}]
+\addplot[blue!70!black,mark=*,mark size=1.5pt,thick] coordinates {(1,-0.438) (2,-0.750) (3,-0.500) (4,-0.750) (5,-0.562) (6,-0.500) (7,-0.500) (8,-0.438) (9,-0.188) (10,-0.188) (11,-0.125) (12,-0.438) (13,-0.125) (14,-0.312)};
+\addplot[orange!80!black,mark=square*,mark size=1.5pt,thick] coordinates {(1,-0.312) (2,-0.562) (3,-0.562) (4,-0.625) (5,-0.625) (6,-0.188) (7,-0.062) (8,-0.375) (9,-0.438) (10,-0.312) (11,-0.375) (12,-0.250) (13,-0.188) (14,-0.312) (15,-0.188) (16,-0.250) (17,-0.250) (18,-0.312) (19,-0.312) (20,-0.438) (21,-0.500) (22,-0.312)};
+\draw[blue!70!black,dotted,thick] (axis cs:7.5,-0.85) -- (axis cs:7.5,0.1);
+\draw[orange!80!black,dotted,thick] (axis cs:9.5,-0.85) -- (axis cs:9.5,0.1);
+\legend{Liga A (realista),Liga B (onisciente)}
+\end{axis}
+\end{tikzpicture}
+\caption{Placar médio por rodada (16 jornadas cada; negativo = vantagem do comprador). Rodadas ímpares: vendedores aprendem; pares: compradores. As linhas pontilhadas marcam a introdução do placar condicionado ao \emph{fit} (A: rodada 8; B: rodada 10).}
+\label{fig:curva}
+\end{figure}
+
+O placar da liga permaneceu negativo (vantagem do comprador) durante todo o experimento (Fig.~\ref{fig:curva}). Na liga A, a média passou de $-0{,}53$ (143 jornadas antes da correção de incentivo) para $-0{,}26$ (130 depois); na liga B, de $-0{,}41$ para $-0{,}31$. Não houve convergência para o equilíbrio.
+
+\begin{table}[h]
+\centering
+\caption{Resultados por estágio antes e depois do placar condicionado ao \emph{fit} (liga A). ``Avançou'' = objetivo do estágio atingido (reunião, PoC ou contrato).}
+\label{tab:estagios}
+\begin{tabular}{llrrrrr}
+\toprule
+Estágio & Período & $n$ & Placar & Avançou & Turnos & Falsas/call \\
+\midrule
+\multirow{2}{*}{Cold call} & antes & 69 & $-0{,}26$ & 3\% & 11,4 & 0,17 \\
+ & depois & 63 & $-0{,}10$ & 0\% & 9,2 & 0,22 \\
+\multirow{2}{*}{Discovery} & antes & 36 & $-0{,}81$ & 3\% & 9,5 & 0,08 \\
+ & depois & 36 & $-0{,}22$ & 0\% & 7,3 & 0,03 \\
+\multirow{2}{*}{Fechamento} & antes & 40 & $-0{,}60$ & 60\% & 12,3 & 0,47 \\
+ & depois & 31 & $-0{,}55$ & 71\% & 8,0 & 0,19 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Fechamento.} Das 198 negociações de fechamento nas duas ligas, 130 terminaram em contrato, a um preço médio de 88\% do orçamento do comprador e 87--88\% do preço de tabela; apenas 8 fecharam acima do orçamento. As afirmações falsas por call no fechamento caíram na liga realista ($0{,}47\to0{,}19$) e subiram na onisciente ($0{,}28\to0{,}48$).
+
+\subsection{O que foi aprendido}
+
+As lições que sobreviveram à consolidação e à estatística de crédito incluem, para vendedores:
+\begin{itemize}
+  \item ``responder 100\% do que o comprador perguntou antes de fazer qualquer pergunta minha'';
+  \item ``no máximo uma pergunta por turno'';
+  \item ``não revelo preço, referência nem proposta sem troca explícita'';
+  \item ``declaro o \emph{gap} em uma frase'';
+  \item ``nunca verbalizo números que não constam na ficha'';
+  \item transformar ``manda material'' em compromissos verificáveis.
+\end{itemize}
+São práticas coerentes com a literatura de vendas consultivas e de negociação~\cite{rackham1988spin,dixon2011challenger,fisher1981getting}. Para compradores, as lições convergiram para filtragem agressiva: ``filtro de relevância em 30 segundos'', ``antes de revelar volume, orçamento ou sistemas, devolvo pergunta de competência''. O crítico atribuiu às lições aplicadas 729 efeitos ``ajudou'' contra 209 ``atrapalhou'', mas essa autoavaliação é enviesada e não substitui a avaliação pareada.
+
+\section{Discussão}
+
+\subsection{Exploração de incentivo: o comprador-porteiro}
+\label{sec:incentivo}
+Na versão inicial do placar, encerrar a cold call ou a \emph{discovery} sem próximo passo era vitória do comprador, \emph{mesmo quando o produto resolvia uma dor real dele}. O autojogo explorou essa brecha:
+\begin{itemize}
+  \item as lições dos compradores passaram a prescrever bloqueio universal (``em qualquer estágio e com qualquer vendedor, exijo prova antes de revelar qualquer coisa'');
+  \item as cold calls encurtaram de $\sim$14 para $\sim$9 turnos;
+  \item a taxa de reunião com $\textit{fit}\ge0{,}5$ caiu de 3--6\% para 0\%.
+\end{itemize}
+Condicionamos o placar ao \emph{fit}: parar sem \emph{fit} continua sendo vitória do comprador (filtrou bem), mas parar com \emph{fit} passa a ser empate (o vendedor não abriu a porta, e o comprador perdeu uma solução útil). A correção melhorou o placar médio, mas não restaurou a taxa de reuniões dentro da janela observada, porque a memória já acumulada continuou prescrevendo bloqueio. A lição metodológica é que, em autojogo, \textbf{o placar é o hiperparâmetro mais sensível}, e a deriva de realismo precisa ser monitorada como métrica de primeira classe.
+
+\subsection{Por que o crítico onisciente não ajuda}
+Nossa hipótese é que um crítico com acesso ao orçamento real e ao \emph{fit} escreve lições cuja condição de aplicação depende de informação que o vendedor não observa durante a call. Elas parecem corretas \emph{ex post}, mas não são acionáveis \emph{ex ante}. O aumento de afirmações falsas na liga B sugere, adicionalmente, que conhecer o que ``funcionou'' sem conhecer o porquê observável incentiva atalhos retóricos.
+
+\subsection{Assimetria estrutural do fechamento}
+Sob a regra ``o comprador vence se fechar abaixo do orçamento'', um comprador racional, que conhece o próprio orçamento, nunca aceita preço acima dele: prefere recusar e empatar. O vendedor só vence se o comprador escolher estourar a verba pelo valor percebido, o que é raro. O dado de 122 contratos abaixo do orçamento em 130 confirma a assimetria. Uma regra simétrica, em que vence quem puxar o preço para o seu lado do ponto médio da zona de acordo entre piso e orçamento, torna o 50/50 alcançável por construção, porque ambos têm informação privada.
+
+\subsection{Coerência entre \emph{fit} e dor}
+A inspeção de transcrições revelou cenários com \emph{fit} alto em que a dor sorteada para o comprador não era resolvida pelo produto. Exemplo: \emph{fit} 0,95 com a dor ``vistoria de devolução por imagem'' para um produto de telemetria. O comprador rejeitou corretamente. O \emph{fit} (escalar) e a dor (texto) eram sorteados de forma independente dentro do mesmo tema. Isso contamina o sinal de aprendizado e parte da taxa de rejeição.
+
+\section{Limitações}
+\begin{itemize}
+  \item \textbf{Amostra pequena:} 20 a 32 pares por linha na Tab.~\ref{tab:pareada}. Apenas um resultado atinge $p<0{,}05$, sem correção para comparações múltiplas.
+  \item \textbf{Regras alteradas durante a execução} (\S5): os dados antes e depois não são plenamente comparáveis.
+  \item \textbf{Um único modelo} nos dois lados, no crítico e nos juízes, com possíveis vieses compartilhados.
+  \item \textbf{Sem âncora humana:} não validamos se o comprador é realisticamente difícil, apenas difícil.
+  \item \textbf{Juízes LLM:} o verificador de afirmações e o extrator do relatório ao chefe podem errar; não foram auditados manualmente em escala.
+  \item \textbf{Métricas de realismo de forma}, e não de conteúdo, derivadas de estatísticas em inglês e de outro mercado.
+  \item \textbf{Execução curta:} interrompida a $\sim$10\% do orçamento planejado; a avaliação final com ablação (\emph{playbook} vs.\ lições) não foi executada.
+\end{itemize}
+
+\section{Trabalhos futuros}
+\begin{enumerate}
+  \item Gerar dores coerentes com o \emph{fit} (resolvidas por funcionalidades \emph{existentes} quando o \emph{fit} é alto; adjacentes quando é baixo).
+  \item Adotar a regra de fechamento pelo ponto médio e comparar com a regra atual.
+  \item Calibrar o comprador em cenários de controle antes do autojogo (por exemplo, \emph{fit} alto com vendedor competente deve gerar reunião numa fração substancial dos casos).
+  \item Regularizar o realismo das lições do comprador (rejeitar regras universais de bloqueio) e monitorar a deriva por faixa de \emph{fit}.
+  \item Executar a ablação \emph{playbook} vs.\ lições com $n\ge24$ por lado.
+  \item Validar com vendedores humanos jogando contra os compradores treinados.
+\end{enumerate}
+
+\section{Conclusão}
+Uma arena de autojogo com memória em contexto pode produzir vendedores LLM mensuravelmente melhores e com práticas coerentes com a literatura de vendas, desde que o crítico aprenda apenas com o que o agente pode observar. O resultado mais importante, porém, é negativo e metodológico: em autojogo, os agentes encontram e exploram brechas do placar, e um placar mal especificado produz simuladores irrealistas, justamente o oposto do que se deseja para treinar pessoas. Coerência de cenário, simetria do jogo e calibração prévia do simulador são pré-requisitos, e não refinamentos, para buscar um equilíbrio 50/50 que seja também realista.
+
+\begin{thebibliography}{99}\small
+\bibitem[Bianchi et~al.(2024)]{bianchi2024negotiationarena} F.~Bianchi, P.~J.~Chia, M.~Yuksekgonul, J.~Tagliabue, D.~Jurafsky, J.~Zou. How well can LLMs negotiate? NegotiationArena platform and analysis. \emph{ICML}, 2024.
+\bibitem[Dixon e Adamson(2011)]{dixon2011challenger} M.~Dixon, B.~Adamson. \emph{The Challenger Sale}. Portfolio, 2011.
+\bibitem[Fisher e Ury(1981)]{fisher1981getting} R.~Fisher, W.~Ury. \emph{Getting to Yes}. Houghton Mifflin, 1981.
+\bibitem[Fu et~al.(2023)]{fu2023improving} Y.~Fu, H.~Peng, T.~Khot, M.~Lapata. Improving language model negotiation with self-play and in-context learning from AI feedback. \emph{arXiv:2305.10142}, 2023.
+\bibitem[Gong Labs(2024)]{gong2024talk} Gong Labs. Mastering the talk-to-listen ratio in sales calls. \url{https://www.gong.io/resources/labs/talk-to-listen-conversion-ratio/}.
+\bibitem[He et~al.(2018)]{he2018decoupling} H.~He, D.~Chen, A.~Balakrishnan, P.~Liang. Decoupling strategy and generation in negotiation dialogues. \emph{EMNLP}, 2018.
+\bibitem[Lewis et~al.(2017)]{lewis2017deal} M.~Lewis, D.~Yarats, Y.~Dauphin, D.~Parikh, D.~Batra. Deal or no deal? End-to-end learning for negotiation dialogues. \emph{EMNLP}, 2017.
+\bibitem[Microsoft Research(2025)]{magentic2025} Microsoft Research. Magentic Marketplace: an open-source environment for studying agentic markets. \emph{arXiv:2510.25779}, 2025.
+\bibitem[Rackham(1988)]{rackham1988spin} N.~Rackham. \emph{SPIN Selling}. McGraw-Hill, 1988.
+\bibitem[SalesLLM(2026)]{salesllm2026} Sell more, play less: benchmarking LLM realistic selling skill. \emph{arXiv:2604.07054}, 2026.
+\bibitem[Shinn et~al.(2023)]{shinn2023reflexion} N.~Shinn, F.~Cassano, A.~Gopinath, K.~Narasimhan, S.~Yao. Reflexion: language agents with verbal reinforcement learning. \emph{NeurIPS}, 2023.
+\bibitem[Thompson(1933)]{thompson1933} W.~R.~Thompson. On the likelihood that one unknown probability exceeds another in view of the evidence of two samples. \emph{Biometrika}, 25(3/4):285--294, 1933.
+\bibitem[Zhao et~al.(2024)]{zhao2024expel} A.~Zhao, D.~Huang, Q.~Xu, M.~Lin, Y.-J.~Liu, G.~Huang. ExpeL: LLM agents are experiential learners. \emph{AAAI}, 2024.
+\bibitem[Zhou et~al.(2024a)]{zhou2024sotopia} X.~Zhou et~al. SOTOPIA: interactive evaluation for social intelligence in language agents. \emph{ICLR}, 2024.
+\bibitem[Zhou et~al.(2024b)]{zhou2024reallife} X.~Zhou, Z.~Su, T.~Eisape, H.~Kim, M.~Sap. Is this the real life? Is this just fantasy? The misleading success of simulating social interactions with LLMs. \emph{arXiv:2403.05020}, 2024.
+\end{thebibliography}
+
+\appendix
+\section{Exemplo de diálogo (discovery, liga de teste)}
+\small
+\begin{quote}
+\textbf{V:} Você comentou que a integração cai no pico. [...] A PoC não precisa rodar nos três sistemas ao mesmo tempo. O que eu preciso entender com você é: desses três, qual é o que mais dói hoje, em volume ou em reclamação?\\
+\textbf{C:} Faz sentido. Mas esse fluxo vai conversar com o sistema legado de verdade, ou com um espelho? Porque, se for espelho, eu já sei que vai funcionar.\\
+\textbf{V:} Boa pergunta. [...] A PoC tem que falar com o legado real, não com espelho. Caso contrário, não prova nada.
+\end{quote}
+
+\section{Trecho de \emph{playbook} consolidado (vendedor consultivo, liga A)}
+\begin{quote}
+``Em cold call, abro confirmando UM contexto público conhecido e pergunto onde dói hoje em R\$ ou horas. Permissão verbal não é dor: faço pergunta de contexto que obrigue o comprador a falar de si. [...] Quando o cliente exige prova de credibilidade, respondo com fato verificável em uma frase, declaro o \emph{gap} em uma frase e condiciono a entrega completa a uma troca mínima de contexto dele.''
+\end{quote}
+
+\end{document}

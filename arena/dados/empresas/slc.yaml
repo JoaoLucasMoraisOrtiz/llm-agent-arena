@@ -1,0 +1,77 @@
+id: slc
+nome: SLC Agrícola
+setor: agro
+porte: grande
+maturidade_digital: media
+publico: |
+  A SLC Agrícola (B3: SLCE3), com sede em Porto Alegre (RS), é uma das maiores produtoras de grãos e fibras do Brasil
+  e tem a maior área agrícola do país. Produz soja, algodão e milho (segunda safra), além de outras culturas e sementes
+  próprias. Opera cerca de 26 fazendas em oito estados, concentradas no Cerrado (MT, BA, MA, PI, GO, MS), com modelo de
+  terras próprias, arrendadas e em joint ventures. Tem mais de 6.700 colaboradores (2025, aproximado), boa parte em
+  operações de campo, máquinas e algodoeiras.
+
+  Números recentes (aproximados): em 2025 a receita líquida foi de cerca de R$ 8,6 bilhões. A área plantada orçada
+  para a safra 2025/26 é de aproximadamente 836 mil hectares, cerca de 14% maior que no ciclo anterior, em grande parte
+  por causa da aquisição da Sierentz do Brasil, anunciada em março de 2025. A composição é de cerca de 51% soja, 23%
+  algodão e 19% milho. No 2T26 a receita foi de cerca de R$ 2,2 bilhões (+17%), com lucro de aproximadamente R$ 245
+  milhões (+75%) e EBITDA ajustado de cerca de R$ 580 milhões. A produtividade foi recorde em soja (cerca de 4.146
+  kg/ha) e algodão (cerca de 2.155 kg/ha), mas o milho ficou abaixo do orçado. O fluxo de caixa livre do trimestre foi
+  negativo em cerca de R$ 800 milhões. A dívida líquida ajustada subiu para aproximadamente R$ 7,5 bilhões e a
+  alavancagem para cerca de 3,1x EBITDA (de cerca de 2x no fim de 2025), com custo médio da dívida em reais perto de
+  14% ao ano. Cerca de 90% da soja e 95% do algodão da safra 2025/26 já estavam com preço travado (hedge).
+
+  Estratégia declarada: crescer em área com terras próprias e parcerias, verticalizar sementes (cerca de 70% da
+  semente de soja e quase 100% da de algodão já são produzidas internamente), ampliar a irrigação para cerca de 53 mil
+  hectares até 2030 e manter o compromisso de desmatamento zero desde 2021. Cerca de 132 mil hectares de vegetação
+  nativa são preservados, e há fazendas com balanço de carbono negativo. A empresa também valoriza seu patrimônio de
+  terras, com NAV estimado bem acima da cotação.
+
+  Tecnologia: a SLC tem um Centro de Inteligência Agrícola desde 2019 e uma área de Agricultura Digital com dezenas de
+  profissionais na matriz e nas fazendas, operando cerca de 20 sistemas diferentes. Em 2025 investiu cerca de R$ 12
+  milhões em agricultura digital e declarou economia de aproximadamente R$ 58 milhões com aplicação localizada de
+  insumos. Usa agricultura de precisão, telemetria de máquinas, monitoramento de pragas e dados climáticos.
+
+  Desafios públicos: alavancagem em alta com juros elevados, forte sazonalidade do caixa, volatilidade de preços de
+  commodities e câmbio, risco climático (a frustração no milho em 2025/26 é um exemplo), integração operacional das
+  fazendas da Sierentz, custo e disponibilidade de insumos e mão de obra qualificada em regiões remotas, e a exigência
+  crescente de rastreabilidade socioambiental por compradores internacionais de algodão e soja.
+cargos:
+  CTO: "Cuida da TI corporativa e da Agricultura Digital, integrando cerca de 20 sistemas de campo, telemetria e ERP. Em 2026 prioriza conectar as fazendas incorporadas da Sierentz, melhorar a conectividade no campo e consolidar dados de produção."
+  CFO: "Gere dívida líquida de cerca de R$ 7,5 bilhões, hedge de commodities e câmbio e o caixa sazonal da safra. A prioridade é reduzir a alavancagem de cerca de 3x EBITDA e o custo financeiro."
+  COO: "Responde pelas cerca de 26 fazendas, pelo plantio, pela colheita, pelas algodoeiras e pelo parque de máquinas. O foco é produtividade por hectare, custo por saca e integração das novas áreas."
+  Diretor de Compras: "Negocia fertilizantes, defensivos, sementes, diesel, peças e máquinas agrícolas em grande volume. Busca travar preço de insumos, reduzir capital de giro e garantir entrega no prazo da janela de plantio."
+  Diretor Comercial: "Responsável pela venda de soja, milho e algodão a tradings e à indústria têxtil nacional e internacional. O foco é hedge, prêmio de qualidade do algodão e rastreabilidade socioambiental exigida por clientes."
+dores_internas:
+  - tema: agro_campo
+    texto: "Cada fazenda usa combinações diferentes de sistemas de monitoramento de pragas, clima e aplicação. Os agrônomos gastam tempo consolidando dados em planilhas antes de decidir sobre pulverização."
+  - tema: agro_campo
+    texto: "A conectividade limitada em talhões remotos atrasa a sincronização de apontamentos de campo e a comunicação com operadores. Parte dos registros ainda é feita em papel."
+  - tema: frota
+    texto: "Tratores, colheitadeiras, pulverizadores e caminhões próprios têm manutenção corretiva alta na safra, e máquina parada na janela de colheita custa caro. A telemetria das máquinas não está integrada ao planejamento de manutenção."
+  - tema: frota
+    texto: "O consumo de diesel por máquina e por operação é pouco controlado entre fazendas, com suspeita de desvios e sem conciliação automática com abastecimentos."
+  - tema: seguranca
+    texto: "Redes nas fazendas, máquinas conectadas e acesso remoto de fornecedores ampliaram a superfície de ataque. Um ransomware na safra pararia algodoeiras e a logística de embarque."
+  - tema: seguranca
+    texto: "Há acidentes de trabalho com máquinas e defensivos. Os registros de segurança do trabalho e das NRs são descentralizados, o que dificulta auditorias exigidas por compradores internacionais."
+  - tema: contas_pagar
+    texto: "O pico de compras de insumos e serviços terceirizados antes do plantio gera milhares de notas fiscais de fornecedores regionais. A conferência com pedidos e recebimentos nas fazendas é manual e atrasa pagamentos."
+  - tema: contas_pagar
+    texto: "Os contratos de arrendamento e parceria agrícola têm pagamentos indexados a sacas de soja e datas específicas. O cálculo e o controle ficam em planilhas paralelas ao ERP."
+  - tema: treinamento
+    texto: "É difícil atrair e reter operadores de máquinas e técnicos em regiões remotas do Cerrado. A formação em novas tecnologias (piloto automático, taxa variável) é presencial e concentrada na entressafra."
+  - tema: treinamento
+    texto: "A integração das equipes vindas das fazendas da Sierentz exige padronizar procedimentos operacionais e de segurança da SLC em pouco tempo."
+fornecedores_plausiveis:
+  - "ERP SAP com módulos agrícolas"
+  - "Plataformas de agricultura de precisão e telemetria dos fabricantes de máquinas (John Deere Operations Center e similares)"
+  - "Fornecedores de insumos: multinacionais de defensivos, fertilizantes e sementes"
+  - "Provedores de conectividade rural (satélite e 4G privado) e estações meteorológicas"
+  - "Tradings e bancos para hedge de commodities e câmbio"
+fontes:
+  - https://renovainvest.com.br/blog/slc-agricola-slce3-resultado-2t26/
+  - https://analisa.genialinvestimentos.com.br/acoes/slc-agricola/slc-agricola-slce3-resultado-2t26/
+  - https://safras.com.br/slc-agricola-anuncia-projecoes-para-a-safra-2025-26-area-plantada-sera-136-maior/
+  - https://sounews.com.br/slc-agricola-registra-receita-de-r-86-bilhoes-em-2025-e-alcanca-produtividade-recorde-no-milho/
+  - https://www.slcagricola.com.br/noticias/agricultura-digital-na-slc-agricola/
+  - https://ri.slcagricola.com.br/en/the-company/about-us/

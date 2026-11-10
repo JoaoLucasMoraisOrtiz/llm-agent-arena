@@ -1,0 +1,82 @@
+id: magalu
+nome: Magazine Luiza
+setor: varejo
+porte: grande
+maturidade_digital: alta
+publico: |
+  O Magazine Luiza (B3: MGLU3), com sede em Franca (SP), é um dos maiores varejistas multicanal do Brasil. Vende
+  eletroeletrônicos, móveis, eletrodomésticos e bens de consumo em lojas físicas, e-commerce próprio e marketplace
+  aberto a sellers terceiros. O grupo reúne marcas adquiridas nos últimos anos: Netshoes, KaBuM!, Época Cosméticos
+  e Estante Virtual. Também tem uma frente financeira (MagaluPay, cartões e a joint venture Luizacred) e uma frente
+  de tecnologia B2B (Magalu Cloud). Tem cerca de 35 mil funcionários (2026, aproximado) e aproximadamente 1.250 lojas
+  físicas (1.245 no 2T25).
+
+  Números recentes (aproximados): no 2T26 as vendas totais do ecossistema foram de cerca de R$ 14,5 bilhões, 5% abaixo
+  do 2T25. A receita líquida ficou em torno de R$ 8,9 bilhões e o EBITDA ajustado em cerca de R$ 709 milhões, com
+  margem de aproximadamente 8%. A empresa voltou ao prejuízo, de cerca de R$ 72 milhões contábil e R$ 50 milhões
+  ajustado. Os canais seguiram caminhos opostos: as lojas físicas cresceram cerca de 10% (ajudadas pela venda de TVs
+  na Copa do Mundo) e o e-commerce próprio caiu cerca de 12%. O marketplace passou de R$ 3,6 bilhões no trimestre
+  (+50%) e já responde por cerca de 36% das vendas online. As despesas financeiras são o principal peso no resultado:
+  cerca de R$ 570 milhões no trimestre, perto de 6,4% da receita líquida, com a Selic acima de 14%. No 4T25 a empresa
+  teve lucro de cerca de R$ 132 milhões, queda anual de aproximadamente 55%.
+
+  Estratégia declarada: voltar ao lucro "sem depender dos juros", com disciplina de capital de giro (redução de
+  estoques de cerca de R$ 560 milhões no 2T26), crescimento do marketplace e de retail media, e revitalização das
+  lojas. Estão previstas até 50 reformas para o formato "Galeria Magalu", que reúne as marcas do grupo num mesmo
+  espaço. Em 2026 entrou em vigor uma parceria comercial com a Amazon, com integração ao Prime ainda pendente, e a
+  diretoria diz ter outros acordos com plataformas em negociação. Na frente financeira, o MagaluPay movimentou cerca
+  de R$ 25 bilhões de TPV no trimestre, a base é de aproximadamente 5,7 milhões de cartões e a carteira da Luizacred
+  é de cerca de R$ 20 bilhões, com inadimplência em queda.
+
+  Tecnologia: o Luizalabs é o braço interno de desenvolvimento, e a assistente virtual "Lu" é um ativo de marca e de
+  atendimento. A Magalu Cloud, nuvem pública brasileira, diz ter mais de 2 mil clientes corporativos e rodar cerca de
+  80% das cargas do próprio grupo. A receita com clientes externos cresceu mais de dez vezes desde o início de 2025, e
+  a meta é quadruplicar a operação em 2026, com foco em inferência de IA (MGC AI Hub) e parcerias com Red Hat e
+  Alibaba Cloud. A empresa projeta consumir cerca de 5 trilhões de tokens de IA em 2026 e incentiva o uso de IA por
+  todos os funcionários.
+
+  Desafios públicos: margens comprimidas pelo custo de capital, perda de participação no e-commerce próprio para
+  plataformas asiáticas e marketplaces globais, dependência do crédito ao consumidor num cenário de juros altos,
+  complexidade de integrar várias marcas adquiridas e a necessidade de provar que a nuvem própria é viável como
+  negócio. O resultado recente pressiona por eficiência de custos em todas as áreas.
+cargos:
+  CTO: "Responsável pelo Luizalabs, pela plataforma de e-commerce e marketplace e pela Magalu Cloud. Em 2026 prioriza IA generativa na operação (Lu, atendimento, desenvolvimento), a integração com a Amazon e a redução de custo de infraestrutura."
+  CFO: "Cuida da estrutura de capital, do desconto de recebíveis, da Luizacred e do MagaluPay. A meta pública é voltar ao lucro sem depender da queda dos juros, cortando despesa financeira e liberando capital de giro."
+  COO: "Responde por cerca de 1.250 lojas, pelos centros de distribuição e pela malha logística (entregas rápidas, Magalu Entregas). Neste ano foca na produtividade das lojas, nas reformas para o formato Galeria Magalu e no custo por entrega."
+  Diretor de Compras: "Negocia com a indústria de eletro, móveis e eletroportáteis e com fornecedores indiretos (serviços, facilities, TI). A prioridade é reduzir estoque, melhorar prazo com fornecedores e cortar gastos indiretos."
+  Diretor Comercial: "Responsável pelo sortimento, pelo pricing, pelo marketplace (sellers) e pelo retail media. Busca recuperar o e-commerce próprio, escalar a parceria com a Amazon e aumentar a receita de publicidade."
+dores_internas:
+  - tema: atendimento
+    texto: "O volume de contatos no SAC dispara em datas como Black Friday e Copa. Boa parte envolve atraso de entrega de sellers do marketplace, que o Magalu não controla, e o tempo de resposta estoura o SLA em picos."
+  - tema: atendimento
+    texto: "A Lu resolve dúvidas simples, mas o repasse para atendente humano perde o contexto. O cliente repete a história e a nota de satisfação cai nos casos de troca e devolução."
+  - tema: custo_nuvem
+    texto: "Nem todas as cargas foram migradas para a Magalu Cloud. Ainda há gastos em hyperscalers de marcas adquiridas (KaBuM!, Netshoes) sem visibilidade consolidada de FinOps por unidade de negócio."
+  - tema: custo_nuvem
+    texto: "O consumo de tokens de IA cresce rápido com a meta de uso por todos os funcionários, e ainda não há governança clara de custo por caso de uso nem cobrança interna entre áreas."
+  - tema: seguranca
+    texto: "A base de milhões de clientes com cartão e conta digital atrai fraude de conta (account takeover) e golpes de engenharia social usando a marca. O time de segurança prioriza alertas manualmente."
+  - tema: seguranca
+    texto: "Acessos de terceiros (sellers, transportadoras, parceiros de integração) proliferaram com o marketplace e a parceria com a Amazon. A revisão periódica de acessos é feita em planilha."
+  - tema: contas_pagar
+    texto: "O contas a pagar recebe milhares de notas de transportadoras, prestadores de loja e fornecedores de serviços com layouts variados. Há retrabalho de conciliação e pagamentos em duplicidade eventuais entre as marcas do grupo."
+  - tema: contas_pagar
+    texto: "Os CNPJs e ERPs das empresas adquiridas são diferentes, o que dificulta centralizar o fluxo de aprovação e ter visão única do prazo médio de pagamento, que o CFO quer esticar."
+  - tema: treinamento
+    texto: "O turnover de vendedores de loja é alto, e as reformas para o formato Galeria Magalu exigem que o vendedor conheça várias marcas (cosméticos, esporte, games). Hoje o treinamento é presencial e desigual entre regiões."
+  - tema: treinamento
+    texto: "Atendentes e analistas precisam ser capacitados rápido em novas ferramentas de IA, mas não há trilha estruturada nem forma de medir adoção e ganho de produtividade."
+fornecedores_plausiveis:
+  - "ERP SAP e sistemas legados próprios desenvolvidos pelo Luizalabs"
+  - "Nuvem própria (Magalu Cloud) combinada com hyperscaler (AWS/Google Cloud) em cargas herdadas de aquisições"
+  - "Atendimento parcialmente terceirizado em BPO de contact center, com chatbot próprio (Lu)"
+  - "Plataforma de prevenção a fraudes e bureaus de crédito (ex.: Serasa Experian)"
+  - "Transportadoras regionais e Correios na última milha, além de malha própria"
+fontes:
+  - https://www.moneytimes.com.br/magazine-luiza-mglu3-tem-prejuizo-de-r-725-milhoes-no-2t26-estamos-fazendo-tudo-para-voltar-a-dar-lucro-sem-depender-dos-juros-diz-cfo-lmrs/
+  - https://www.suno.com.br/noticias/magazine-luiza-mglu3-resultado-2t26-prejuizo-mt/
+  - https://www.infomoney.com.br/mercados/magazine-luiza-mglu3-resultados-segundo-trimestre-2025/
+  - https://www.infomoney.com.br/mercados/magazine-luiza-mglu3-resultados-quarto-trimestre-2025/
+  - https://itforum.com.br/noticias/magalu-cloud-preco-soberania-ia/
+  - https://www.datacenterdynamics.com/br/not%C3%ADcias/magalu-cloud-registra-crescimento-de-mais-de-dez-vezes-na-receita-externa-e-amplia-portf%C3%B3lio-de-ia/
+  - https://ri.magazineluiza.com.br/

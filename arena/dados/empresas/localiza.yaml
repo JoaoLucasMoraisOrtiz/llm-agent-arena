@@ -1,0 +1,78 @@
+id: localiza
+nome: Localiza
+setor: mobilidade
+porte: grande
+maturidade_digital: alta
+publico: |
+  A Localiza&Co (B3: RENT3), com sede em Belo Horizonte (MG), é a maior empresa de mobilidade e aluguel de veículos da
+  América Latina. Atua em três frentes: aluguel de carros (RAC), gestão e terceirização de frotas para empresas e
+  pessoas físicas (incluindo carro por assinatura e motoristas de aplicativo) e venda de seminovos, que renova a frota
+  continuamente. Após a fusão com a Unidas, concluída em 2022, consolidou a liderança do setor. Tem mais de 24 mil
+  colaboradores e mais de 950 agências na América Latina (aproximado), além de cerca de 270 lojas de seminovos.
+
+  Números recentes (aproximados): em 2025 a receita líquida foi de cerca de R$ 41,7 bilhões (+12%), o EBITDA de
+  aproximadamente R$ 13,8 bilhões e o lucro contábil de cerca de R$ 1,8 bilhão (o ajustado, sem efeitos não
+  recorrentes, ficaria perto de R$ 3,4 bilhões). A frota total terminou 2025 com cerca de 656 mil veículos. No 2T26 a
+  receita consolidada foi de cerca de R$ 12,3 bilhões (+24,5%), com lucro de aproximadamente R$ 1 bilhão (+31%) e EBITDA
+  de cerca de R$ 3,8 bilhões. A frota chegou a cerca de 677 mil carros. No aluguel, a receita foi de cerca de R$ 2,7
+  bilhões, com diária média perto de R$ 154, e a idade média da frota operacional caiu de cerca de 11 para 8 meses. Em
+  gestão de frotas, a receita foi de aproximadamente R$ 2,4 bilhões, com ocupação de cerca de 97%. Em seminovos foram
+  vendidos cerca de 92 mil carros no trimestre (+35%), com receita de aproximadamente R$ 7,2 bilhões. A dívida líquida
+  está em cerca de R$ 32 bilhões, com caixa de aproximadamente R$ 11 bilhões.
+
+  Estratégia declarada: crescer volumes com aumento de preços de locação, disciplina na alocação de capital,
+  renovação acelerada da frota e expansão da rede de seminovos para reduzir depreciação e custo de carregamento. A
+  empresa se posiciona como plataforma de mobilidade (aluguel, assinatura, frota corporativa e seminovos) e investe
+  em jornadas 100% digitais, como retirada sem balcão pelo app e precificação dinâmica.
+
+  Tecnologia: a Localiza tem um laboratório de tecnologia e ciência de dados com mais de 1.700 profissionais. Usa IA
+  generativa em escala no desenvolvimento de software: mais de 450 usuários semanais de copiloto de código,
+  aproximadamente 2,9 milhões de linhas editadas com IA e ganho de produtividade declarado de cerca de 21%. Também
+  aplica dados em precificação, previsão de demanda, telemetria e avaliação de seminovos.
+
+  Desafios públicos: é muito sensível à taxa de juros (Selic acima de 14%) por causa da dívida elevada, e o resultado
+  depende do preço dos carros novos e usados, que determina a depreciação. Há ainda a concorrência de montadoras e
+  outras locadoras, os custos de sinistros, roubos e manutenção, e a exposição a mudanças tributárias (IPI e reforma
+  tributária). A operação é intensiva em pessoas e frota espalhada pelo país, o que exige controle fino de avarias,
+  multas, pedágios, manutenção e atendimento a milhões de clientes, inclusive motoristas de aplicativo, com alta
+  inadimplência e desgaste dos veículos.
+cargos:
+  CTO: "Lidera o laboratório de tecnologia e dados (mais de 1.700 pessoas), responsável por app, precificação, telemetria e sistemas de frota. Em 2026 prioriza escalar IA generativa além do desenvolvimento, chegando a atendimento e back-office, com controle de custo e segurança."
+  CFO: "Gere uma dívida líquida de cerca de R$ 32 bilhões, o funding da compra de carros e a depreciação. O foco é custo de capital, spread entre retorno e dívida e eficiência de processos financeiros de alto volume (multas, pedágios, sinistros)."
+  COO: "Responde por mais de 950 agências, oficinas, preparação e logística de cerca de 677 mil veículos. A prioridade é aumentar a produtividade da frota, reduzir o tempo de carro parado e acelerar a desmobilização para seminovos."
+  Diretor de Compras: "Negocia a compra de centenas de milhares de carros por ano com montadoras, além de peças, pneus, manutenção terceirizada e serviços. O foco é preço, prazo de entrega das montadoras e custo de manutenção por quilômetro."
+  Diretor Comercial: "Responsável por RAC, contratos de frotas corporativas e assinatura. Busca aumentar a diária média, renovar contratos de gestão de frotas com reajuste e ganhar clientes PJ de médio porte."
+dores_internas:
+  - tema: frota
+    texto: "O tempo entre a devolução do carro e a volta à disponibilidade (vistoria, limpeza, pequenos reparos) varia muito entre agências, o que derruba a ocupação em cidades de alta demanda."
+  - tema: frota
+    texto: "Avarias na devolução geram disputa com o cliente. A vistoria ainda depende de fotos manuais e julgamento do atendente, com perda de receita de cobrança e excesso de contestações."
+  - tema: frota
+    texto: "A frota de motoristas de aplicativo tem alto índice de roubo, multas e manutenção corretiva. A telemetria existe, mas os alertas não chegam rápido às equipes de recuperação e manutenção."
+  - tema: atendimento
+    texto: "A central recebe grande volume de contatos sobre multas, pedágios, cobranças pós-locação e sinistros. As jornadas são fragmentadas entre sistemas de RAC, frotas e seminovos."
+  - tema: atendimento
+    texto: "Clientes corporativos de frotas reclamam da demora em trocas, agendamento de manutenção e segunda via de faturas. O gestor de conta vira intermediário manual de tudo."
+  - tema: seguranca
+    texto: "Fraudes de identidade na locação (documentos falsos, cartões clonados) resultam em carros não devolvidos. A validação de documentos combina sistemas diferentes nas marcas legadas da Unidas."
+  - tema: seguranca
+    texto: "Com centenas de desenvolvedores usando copilotos de IA, cresce o risco de vazamento de código e segredos em prompts. A governança de uso de IA ainda está sendo formalizada."
+  - tema: contas_pagar
+    texto: "Milhares de oficinas, funilarias, guinchos e fornecedores de pneus emitem notas por serviço executado. Validar cada nota contra a ordem de serviço é manual e gera atrasos e pagamentos indevidos."
+  - tema: contas_pagar
+    texto: "Multas de trânsito e pedágios chegam em volumes de centenas de milhares por mês e precisam ser pagas no prazo ou indicadas ao condutor. Falhas geram perda de desconto e retrabalho."
+  - tema: treinamento
+    texto: "A rotatividade de atendentes de agência e de loja de seminovos é alta. Cada novo atendente precisa aprender políticas de locação, vistoria e venda consultiva, e hoje o onboarding leva semanas."
+fornecedores_plausiveis:
+  - "Sistemas de gestão de frota e locação desenvolvidos internamente, com integrações a um ERP de mercado"
+  - "Microsoft Azure e GitHub Copilot como parte da plataforma de desenvolvimento"
+  - "Telemetria e rastreamento veicular de terceiros"
+  - "Rede credenciada de oficinas, funilarias e guinchos"
+  - "Contact center com operação parcialmente terceirizada (BPO)"
+fontes:
+  - https://www.infomoney.com.br/mercados/localiza-rent3-resultados-segundo-trimestre-2026/
+  - https://br.advfn.com/jornal/2026/08/localiza-registra-lucro-de-r-1-bilhao-no-2t26-com-avanco-da-receita-e-forca-dos-seminovos
+  - https://www.moneytimes.com.br/localiza-rent3-lucra-r-939-milhoes-no-4t25-alta-de-121-ante-4tri24-kda/
+  - https://br.advfn.com/jornal/2026/02/localiza-lucra-r-939-milhoes-no-4o-trimestre-de-2025-alta-de-12-1-receita-atinge-r-11-bilhoes
+  - https://news.microsoft.com/source/latam/noticias-da-microsoft/localizaco-acelera-desenvolvimento-de-software-com-ia-e-registra-ganho-de-21-em-produtividade/?lang=pt-br
+  - https://ri.localiza.com/en/information-to-shareholders/results-center/

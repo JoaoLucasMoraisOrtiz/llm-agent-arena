@@ -1,0 +1,54 @@
+id: frotasense
+nome: FrotaSense
+tema: frota
+empresa_vendedora:
+  nome: FrotaSense Telemetria Ltda.
+  descricao: "Empresa brasileira fundada em 2012 em Curitiba (PR), com ~280 funcionários, que vende telemetria veicular, gestão de frota e manutenção preditiva."
+descricao_curta: "Plataforma de telemetria e manutenção preditiva que usa dados de CAN bus, GPS e OBD-II para reduzir custo de combustível, sinistros e paradas não planejadas."
+existentes:
+  - "Rastreador próprio homologado pela Anatel com conectividade 4G/LTE-M e fallback 2G, e GPS com precisão de 2,5 metros"
+  - "Leitura de dados via OBD-II em veículos leves e CAN bus (protocolo J1939) em caminhões e máquinas pesadas"
+  - "Leitura de códigos de falha (DTC) em tempo real, com alerta ao gestor em menos de 2 minutos"
+  - "Modelo preditivo para bateria, sistema de arrefecimento e pastilhas de freio com antecedência média de 12 dias e precisão de 78% em frota leve"
+  - "Score de condução por motorista (frenagem brusca, aceleração, excesso de velocidade, uso de celular via câmera opcional)"
+  - "Câmera de telemetria de vídeo (dashcam com IA para fadiga e distração) como acessório opcional"
+  - "Bloqueio remoto de veículo e cerca eletrônica (geofence) com integração a centrais de pronto-resposta"
+  - "Plano de manutenção preventiva por quilometragem e horímetro, com ordem de serviço digital"
+  - "Controle de abastecimento com integração a cartões Ticket Log, Veloe e Edenred"
+  - "API REST e webhooks documentados, com limite de 50 requisições por segundo"
+  - "Operação em mais de 180 mil veículos conectados no Brasil"
+roadmap:
+  - "Manutenção preditiva de transmissão e motor para veículos leves com precisão acima de 85% (previsto para T2/2027)"
+  - "Módulo de gestão de veículos elétricos com previsão de degradação de bateria de tração (previsto para T1/2027)"
+  - "Integração nativa com SAP PM (Plant Maintenance) para ordens de serviço (previsto para T3/2027)"
+  - "Conectividade via satélite de baixa órbita para áreas sem cobertura celular (previsto para T4/2027)"
+limitacoes:
+  - "Precisão do modelo preditivo cai para cerca de 60% em veículos com menos de 6 meses de histórico na plataforma"
+  - "Sem cobertura em áreas sem sinal celular; em zonas rurais remotas os dados ficam em buffer local (até 72 horas) e só sincronizam ao voltar a ter sinal"
+  - "Leitura CAN de máquinas agrícolas depende de protocolo ISOBUS/fabricante e funciona plenamente apenas com John Deere e Case IH (parcial em outras marcas)"
+  - "Instalação do hardware exige agendamento físico: em média 25 veículos por técnico por dia"
+  - "Não possui integração nativa com SAP; hoje é feita via API REST com projeto customizado"
+integracoes: ["Ticket Log, Veloe e Edenred (nativa)", "SAP PM via API REST (não certificada, projeto customizado)", "TOTVS Protheus (conector nativo)", "Power BI via conector de dados", "John Deere Operations Center (API)", "Case IH AFS Connect (API parcial)"]
+sla: "99,5% de disponibilidade da plataforma; troca de rastreador defeituoso em até 5 dias úteis em capitais e 10 dias úteis no interior."
+implantacao: "Piloto de 200 veículos em 4 semanas; rollout de 10 mil veículos em 4 a 6 meses. Exige liberação dos veículos para instalação (cerca de 40 minutos por carro), cadastro da frota e integração com o sistema de manutenção do cliente."
+cases:
+  - "Movicar Locadora (mobilidade, 60 mil veículos): redução de 14% no custo de manutenção corretiva e de 9% nos sinistros em 12 meses."
+  - "Transportadora Rota Norte (logística, 2.300 caminhões): economia de 8,5% em diesel por meio de score de condução e redução de marcha lenta."
+  - "Grupo Agrícola Cerrado Forte (agro, 450 veículos e máquinas): redução de 22% em horas paradas de caminhões na safra 2024/25."
+preco_tabela_anual: 1800000
+desconto_max_pct: 15
+metrica_poc: "Percentual de falhas mecânicas previstas com antecedência mínima de 7 dias (recall do modelo) em um piloto de 200 veículos por 90 dias, mais a redução de consumo de combustível no grupo piloto versus grupo controle."
+conhecimento_categoria:
+  - "Telemetria veicular no Brasil costuma custar de R$ 40 a R$ 120 por veículo/mês, com hardware em comodato ou vendido à parte."
+  - "Manutenção preditiva precisa de meses de histórico por modelo de veículo; precisões acima de 90% para qualquer componente são raras."
+  - "Economia de combustível típica com gestão de condução fica entre 5% e 12%; números acima de 20% geralmente envolvem frota muito ineficiente no ponto de partida."
+  - "OBD-II fornece dados limitados e varia por montadora; dados ricos de motor exigem CAN bus (J1939) ou acordo com a montadora (telemetria de fábrica)."
+  - "Cobertura celular em áreas rurais brasileiras é irregular; soluções agro dependem de buffer local ou satélite."
+  - "O gargalo em frotas grandes costuma ser a logística de instalação física, não o software."
+fit_base:
+  magalu: 0.45
+  weg: 0.3
+  localiza: 0.95
+  slc: 0.75
+  hapvida: 0.2
+cargos_alvo: [COO, CFO, Diretor de Compras]

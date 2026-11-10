@@ -1,0 +1,53 @@
+id: campovivo
+nome: CampoVivo
+tema: agro_campo
+empresa_vendedora:
+  nome: CampoVivo Agrotecnologia
+  descricao: "Agtech brasileira fundada em 2016 em Piracicaba (SP), com ~190 funcionários, que vende monitoramento agrícola por satélite, estações meteorológicas e sensores IoT de solo."
+descricao_curta: "Monitoramento de lavouras por imagens de satélite, estações meteorológicas e sondas de solo, com alertas de estresse, pragas e recomendação de irrigação."
+existentes:
+  - "Imagens Sentinel-2 (10 m, revisita de 5 dias) incluídas e PlanetScope (3 m, diária) como opcional pago"
+  - "Índices NDVI, NDRE e EVI por talhão, com detecção automática de anomalias de vigor"
+  - "Estação meteorológica própria com conectividade LoRaWAN e fallback via satélite (dados de chuva, vento, umidade e temperatura a cada 15 minutos)"
+  - "Sonda de umidade de solo capacitiva em 3 profundidades (20, 40 e 60 cm)"
+  - "Modelos de risco de doença para soja (ferrugem asiática) e algodão (ramulária) calibrados com dados do Cerrado"
+  - "Recomendação de irrigação para pivôs centrais com base em balanço hídrico"
+  - "Mapas de produtividade importados de colhedoras John Deere, Case IH e New Holland (shapefile e ISOXML)"
+  - "Aplicativo de campo offline para monitoramento de pragas (MIP) com georreferenciamento"
+  - "Relatórios de conformidade socioambiental (CAR e desmatamento pós-2020 via dados do PRODES) para exportação e EUDR"
+  - "Área monitorada de 4,2 milhões de hectares em 11 estados"
+roadmap:
+  - "Estimativa de produtividade por talhão 60 dias antes da colheita com erro abaixo de 8% (previsto para T1/2027)"
+  - "Detecção de plantas daninhas por imagens de drone com geração de mapa de aplicação localizada (previsto para T2/2027)"
+  - "Integração nativa com SAP S/4HANA Agro e TOTVS Agro Multicultivos para custo por talhão (previsto para T3/2027)"
+  - "Monitoramento de carbono no solo para créditos de carbono com certificação Verra (previsto para T4/2027)"
+limitacoes:
+  - "Cobertura de nuvens na estação chuvosa (outubro a março no Cerrado) pode deixar até 3 semanas sem imagem óptica útil; não há radar SAR incluído"
+  - "Modelos de doença validados apenas para soja e algodão; milho segunda safra ainda em calibração"
+  - "Estações e sondas exigem instalação física e manutenção anual; densidade recomendada de 1 estação a cada 3 mil hectares"
+  - "Sem integração nativa com ERP; exportação via CSV/API"
+  - "Rede LoRaWAN precisa de gateways próprios instalados na fazenda (alcance de 8 a 12 km em terreno plano)"
+integracoes: ["John Deere Operations Center (API)", "Case IH AFS Connect (API)", "Climate FieldView (importação de dados)", "SAP S/4HANA via API REST (não certificada)", "TOTVS Agro via exportação CSV", "Power BI e Tableau via conector"]
+sla: "99,5% de disponibilidade da plataforma; substituição de sensor defeituoso em até 10 dias úteis; entrega de imagem Sentinel em até 24 horas após passagem do satélite."
+implantacao: "Plataforma de satélite ativa em 2 semanas após envio dos limites de talhões (KML/shapefile); instalação de estações e sondas em 6 a 10 semanas por safra, exige acesso às fazendas, energia solar no local ou baterias e equipe agronômica para validar alertas."
+cases:
+  - "Agropecuária Chapadão Verde (agro, 180 mil hectares de soja e algodão no MT e BA): redução de 12% no uso de fungicida por aplicação orientada por risco na safra 2024/25."
+  - "Grupo Sementes Planalto (agro, 65 mil hectares irrigados): economia de 18% de água e 15% de energia nos pivôs em uma safra."
+  - "Fazendas Horizonte (agro, 95 mil hectares): detecção de falha de plantio em 7% da área em até 20 dias após emergência, permitindo replantio a tempo."
+preco_tabela_anual: 1350000
+desconto_max_pct: 20
+metrica_poc: "Acurácia dos alertas de anomalia e de risco de doença confirmados em campo pela equipe agronômica em uma área piloto de 20 mil hectares durante uma safra, mais a redução de aplicações de defensivo sem perda de produtividade."
+conhecimento_categoria:
+  - "Sentinel-2 é gratuito (resolução de 10 m); imagens de alta resolução diária como Planet são pagas e custam por hectare."
+  - "Imagens ópticas sofrem com nuvens na estação chuvosa; só radar (SAR, como Sentinel-1) enxerga através delas."
+  - "Estimativas de produtividade por satélite com erro abaixo de 5% antes da colheita são raras; erros de 8% a 15% são mais comuns."
+  - "Monitoramento agrícola por satélite costuma custar de R$ 3 a R$ 15 por hectare/ano, e IoT de campo é cobrado à parte por dispositivo."
+  - "Conectividade é a principal barreira do agro digital no Brasil; muitas fazendas exigem LoRaWAN, satélite ou redes 4G privadas."
+  - "Modelos de doença precisam ser calibrados por cultura e região; um modelo de ferrugem da soja não se aplica automaticamente a milho ou algodão."
+fit_base:
+  magalu: 0.05
+  weg: 0.1
+  localiza: 0.05
+  slc: 0.95
+  hapvida: 0.05
+cargos_alvo: [COO, CTO, CFO]

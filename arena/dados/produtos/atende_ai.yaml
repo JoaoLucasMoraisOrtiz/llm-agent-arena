@@ -1,0 +1,55 @@
+id: atende_ai
+nome: Atende.ai
+tema: atendimento
+empresa_vendedora:
+  nome: Atende Tecnologia S.A.
+  descricao: "Empresa brasileira fundada em 2017 em Belo Horizonte (MG), com ~350 funcionários, que vende plataforma de atendimento omnichannel com agentes de IA generativa."
+descricao_curta: "Plataforma omnichannel (WhatsApp, chat, e-mail, voz) com agentes de IA generativa que resolvem demandas e apoiam atendentes humanos."
+existentes:
+  - "Integração oficial com WhatsApp Business Platform (Cloud API da Meta), com suporte a templates, botões e WhatsApp Flows"
+  - "Canais nativos: WhatsApp, webchat, Instagram Direct, Facebook Messenger, e-mail e Reclame Aqui (leitura e resposta via API)"
+  - "Agente de IA generativa com RAG sobre base de conhecimento do cliente (PDF, Confluence, Zendesk Guide, páginas web)"
+  - "Taxa média de resolução autônoma de 38% a 45% em clientes de varejo após 6 meses de operação"
+  - "Assistente do atendente (copiloto) que sugere respostas e resume conversas, reduzindo em média 22% o tempo médio de atendimento (TMA)"
+  - "Roteamento por habilidade, fila, prioridade e SLA, com transbordo para humano mantendo histórico"
+  - "Pesquisas CSAT e NPS pós-atendimento automáticas no próprio canal"
+  - "Conectores prontos para Salesforce Service Cloud, Zendesk, HubSpot e VTEX (consulta de pedidos)"
+  - "Mascaramento automático de CPF, cartão e dados de saúde em logs e transcrições para conformidade com LGPD"
+  - "Painel de supervisão em tempo real com 60 indicadores (TMA, TME, FCR, abandono)"
+  - "Capacidade testada de 12 mil conversas simultâneas por tenant"
+roadmap:
+  - "Canal de voz com IA conversacional (URA cognitiva com voz sintética em português) em produção geral (hoje em beta fechado; GA previsto para T1/2027)"
+  - "Agente de IA que executa ações transacionais complexas (trocas, estornos, remarcação) sem integração customizada (previsto para T2/2027)"
+  - "Conector nativo para SAP Commerce Cloud e SAP S/4HANA (previsto para T3/2027)"
+  - "Análise de sentimento em áudio de ligações em tempo real (previsto para T2/2027)"
+  - "Canal RCS (Rich Communication Services) para operadoras brasileiras (previsto para T4/2027)"
+limitacoes:
+  - "Canal de voz ainda em beta fechado, sem SLA contratual"
+  - "Ações transacionais (cancelar pedido, emitir segunda via, remarcar consulta) exigem desenvolvimento de integração via API pelo cliente ou por serviço profissional pago"
+  - "Não há integração nativa com sistemas de gestão hospitalar (Tasy, MV Soul); precisa de middleware"
+  - "Custo das mensagens de WhatsApp (tarifa da Meta por conversa) é repassado ao cliente e não está incluso no preço"
+  - "Treinamento inicial da IA exige base de conhecimento organizada; sem isso a resolução autônoma fica abaixo de 20%"
+integracoes: ["WhatsApp Business Platform (oficial, BSP)", "Salesforce Service Cloud (nativa)", "Zendesk (nativa)", "HubSpot (nativa)", "VTEX (nativa, consulta de pedidos)", "SAP S/4HANA via API REST (não certificada, projeto customizado)", "Genesys Cloud e Avaya via SIP/API (beta)", "Microsoft Teams para transbordo interno"]
+sla: "99,9% de disponibilidade mensal da plataforma de texto, suporte 24x7 para incidentes críticos com resposta em 30 minutos; canal de voz sem SLA (beta)."
+implantacao: "6 a 10 semanas para canais de texto; exige curadoria da base de conhecimento, APIs dos sistemas de pedidos/cadastro expostas e um time de 2 a 3 pessoas do cliente (atendimento e TI) para validação de fluxos."
+cases:
+  - "Lojas Mercatto (varejo, 1.200 lojas e e-commerce): 41% de resolução autônoma no WhatsApp em 6 meses e redução de R$ 7,8 milhões/ano em custo de contact center."
+  - "Rodamais Aluguel de Carros (mobilidade, 90 mil carros): TME caiu de 6 minutos para 40 segundos e CSAT subiu de 78% para 86% em 5 meses."
+  - "Plano Vida Sul (operadora de saúde, 1,1 milhão de beneficiários): 55% das solicitações de segunda via de boleto e status de autorização resolvidas sem humano."
+preco_tabela_anual: 920000
+desconto_max_pct: 20
+metrica_poc: "Taxa de resolução autônoma (contenção) com CSAT igual ou superior ao atendimento humano em uma amostra de intenções definidas, medida por 45 dias."
+conhecimento_categoria:
+  - "Taxas de resolução autônoma realistas para IA em atendimento ficam entre 25% e 50%; números acima de 70% costumam valer só para intenções simples e selecionadas."
+  - "Os custos de conversa do WhatsApp Business são cobrados pela Meta por mensagem/categoria (marketing, utilidade, serviço) e são separados da licença do software."
+  - "IA generativa em atendimento pode 'alucinar'; soluções sérias usam RAG com base controlada, guardrails e transbordo para humano."
+  - "Ações transacionais exigem integração com sistemas legados, que é o principal gargalo de prazo e custo, não o bot em si."
+  - "Em saúde suplementar, as regras da ANS (RN 395/2016 e RN 623/2024) fixam prazos de resposta a beneficiários e exigem registro de protocolo."
+  - "Reduções de TMA de 15% a 30% com copiloto são comuns; afirmações de redução de headcount pela metade em poucos meses são raras."
+fit_base:
+  magalu: 0.9
+  weg: 0.35
+  localiza: 0.85
+  slc: 0.15
+  hapvida: 0.9
+cargos_alvo: [CTO, COO, Diretor Comercial]
